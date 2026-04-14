@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Austausch</title>
+</head>
+<body>
+  <h1>Austausch 💬</h1>
+
+  <p>Hier können Themen und Fragen diskutiert werden.</p>
+
+  <a href="index.html">Zurück zur Startseite</a>
+</body>
+</html>
