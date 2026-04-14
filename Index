@@ -2,11 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Nachbarschaft Galgenberg</title>
+  <title>Nachbarschaft</title>
 </head>
 <body>
 
-  <h1>Willkommen auf dem Galgenberg 👋</h1>
+  <h1>Nachbarschaft</h1>
 
   <p>
     Diese Seite ist für Anwohnerinnen und Anwohner gedacht,
@@ -14,11 +14,10 @@
   </p>
 
   <h2>Bereiche</h2>
-
   <ul>
-    <li><a href="termine.html">📅 Termine</a></li>
+    <li><a href="events.html">📅 Termine</a></li>
     <li><a href="austausch.html">💬 Austausch</a></li>
-    <li><a href="infos.html">ℹ️ Infos</a></li>
+    <li><a href="Sonstige Infos.html">ℹ️ Infos</a></li>
   </ul>
 
 </body>
