@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Infos</title>
+</head>
+<body>
+  <h1>Infos ℹ️</h1>
+
+  <p>Wichtige Informationen für alle Anwohner.</p>
+
+  <a href="index.html">Zurück zur Startseite</a>
+</body>
+</html>
