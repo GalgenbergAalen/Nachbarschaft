@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Termine</title>
+</head>
+<body>
+  <h1>Termine im Viertel 📅</h1>
+
+  <ul>
+    <li>15. Mai – Nachbarschaftsfest</li>
+    <li>01. Juni – Straßenreinigung</li>
+  </ul>
+
+  <a href="index.html">Zurück zur Startseite</a>
+</body>
+</html>
