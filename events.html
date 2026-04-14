@@ -11,24 +11,51 @@
       background-color: #f4f7f5;
       color: #2f3a32;
     }
+
     header {
       background-color: #4f7c65;
       color: white;
       text-align: center;
       padding: 30px 20px;
     }
+
     main {
       max-width: 900px;
       margin: 30px auto;
       padding: 0 20px;
     }
+
     .box {
       background: white;
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    a {
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    .event-link {
+      display: block;
+      text-decoration: none;
+      color: #2f3a32;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .event-link:hover {
+      background: #edf4ef;
+    }
+
+    .back-link {
       text-decoration: none;
       color: white;
       background-color: #4f7c65;
@@ -37,30 +64,35 @@
       display: inline-block;
       margin-top: 20px;
     }
-    a:hover {
+
+    .back-link:hover {
       background-color: #3f6451;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Termine im Viertel 📅</h1>
+    <h1>Events 📅</h1>
   </header>
 
   <main>
     <div class="box">
+
       <ul>
-        <li>Freitag, 17. April - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 08. Mai - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 12. Juni - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 10. Juli - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 14. August - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 18. September - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
-        <li>Freitag, 09. Oktober - 19 Uhr - Geselliger Austausch auf dem Wagnerplatz</li>
+        <li><a class="event-link" href="event.html">Freitag, 17. April - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 14. August - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 18. September - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><a class="event-link" href="event.html">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
       </ul>
 
-      <a href="index.html">Zurück zur Startseite</a>
+      <a class="back-link" href="index.html">Zurück zur Startseite</a>
+
     </div>
   </main>
+
 </body>
 </html>
