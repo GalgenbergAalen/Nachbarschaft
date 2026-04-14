@@ -33,9 +33,36 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filter-button {
+      border: none;
+      background-color: #e7efe9;
+      color: #2f3a32;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .filter-button:hover {
+      background-color: #dce8e0;
+    }
+
+    .filter-button.active {
+      background-color: #4f7c65;
+      color: white;
+    }
+
     ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
     li {
@@ -51,19 +78,47 @@
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
       cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .event-link:hover {
       background: #edf4ef;
+      transform: translateY(-2px);
+    }
+
+    .event-link.active {
+      border: 2px solid #4f7c65;
+      background: #edf4ef;
+    }
+
+    .event-details {
+      margin-top: 30px;
+    }
+
+    #selectedEvent {
+      display: none;
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #4f7c65;
     }
 
     #eventImage {
-      display: none;
-      margin-top: 20px;
       width: 100%;
-      max-height: 400px;
+      max-height: 420px;
       object-fit: contain;
       border-radius: 12px;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    #eventImage.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hidden {
+      display: none;
     }
 
     .back-link {
@@ -79,6 +134,12 @@
     .back-link:hover {
       background-color: #3f6451;
     }
+
+    #noResults {
+      display: none;
+      margin-top: 10px;
+      color: #6b756d;
+    }
   </style>
 </head>
 
@@ -91,18 +152,62 @@
   <main>
     <div class="box">
 
-      <ul>
-        <li><div class="event-link" onclick="showImage()">Freitag, 17. April - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 14. August - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 18. September - 19 Uhr - Auf ein Bier mit…</div></li>
-        <li><div class="event-link" onclick="showImage()">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit…</div></li>
+      <div class="filter-bar">
+        <button class="filter-button active" onclick="filterEvents('all', this)">Alle</button>
+        <button class="filter-button" onclick="filterEvents('upcoming', this)">Kommende Termine</button>
+        <button class="filter-button" onclick="filterEvents('past', this)">Vergangene Termine</button>
+      </div>
+
+      <ul id="eventList">
+        <li class="event-item" data-date="2026-04-17">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 17. April - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 17. April - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-05-08">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-06-12">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-07-10">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-08-14">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 14. August - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 14. August - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-09-18">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 18. September - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 18. September - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
+
+        <li class="event-item" data-date="2026-10-09">
+          <div class="event-link" onclick="showEvent(this, 'Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch')">
+            Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch
+          </div>
+        </li>
       </ul>
 
-      <!-- Bild -->
-      <img id="eventImage" src="Event2.png" alt="Event">
+      <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
+
+      <div class="event-details">
+        <h2 id="selectedEvent"></h2>
+        <img id="eventImage" src="Event2.png" alt="Event">
+      </div>
 
       <a class="back-link" href="index.html">Zurück zur Startseite</a>
 
@@ -110,8 +215,65 @@
   </main>
 
   <script>
-    function showImage() {
-      document.getElementById("eventImage").style.display = "block";
+    function showEvent(clickedElement, eventText) {
+      const title = document.getElementById("selectedEvent");
+      const image = document.getElementById("eventImage");
+      const allLinks = document.querySelectorAll(".event-link");
+
+      allLinks.forEach(link => link.classList.remove("active"));
+      clickedElement.classList.add("active");
+
+      title.textContent = eventText;
+      title.style.display = "block";
+
+      image.classList.remove("visible");
+
+      setTimeout(() => {
+        title.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+        image.classList.add("visible");
+      }, 100);
+    }
+
+    function filterEvents(type, buttonElement) {
+      const items = document.querySelectorAll(".event-item");
+      const buttons = document.querySelectorAll(".filter-button");
+      const noResults = document.getElementById("noResults");
+
+      buttons.forEach(button => button.classList.remove("active"));
+      buttonElement.classList.add("active");
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        const itemDate = new Date(item.dataset.date);
+        itemDate.setHours(0, 0, 0, 0);
+
+        let show = false;
+
+        if (type === "all") {
+          show = true;
+        } else if (type === "upcoming") {
+          show = itemDate >= today;
+        } else if (type === "past") {
+          show = itemDate < today;
+        }
+
+        if (show) {
+          item.classList.remove("hidden");
+          visibleCount++;
+        } else {
+          item.classList.add("hidden");
+        }
+      });
+
+      noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
   </script>
 
