@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -49,10 +50,20 @@
       padding: 15px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      cursor: pointer;
     }
 
     .event-link:hover {
       background: #edf4ef;
+    }
+
+    #eventImage {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 12px;
     }
 
     .back-link {
@@ -70,6 +81,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -80,19 +92,28 @@
     <div class="box">
 
       <ul>
-        <li><a class="event-link" href="event.html">Freitag, 17. April - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 14. August - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 18. September - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
-        <li><a class="event-link" href="event.html">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit… / Geselliger Austausch</a></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 17. April - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 14. August - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 18. September - 19 Uhr - Auf ein Bier mit…</div></li>
+        <li><div class="event-link" onclick="showImage()">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit…</div></li>
       </ul>
+
+      <!-- Bild -->
+      <img id="eventImage" src="Event2.png" alt="Event">
 
       <a class="back-link" href="index.html">Zurück zur Startseite</a>
 
     </div>
   </main>
+
+  <script>
+    function showImage() {
+      document.getElementById("eventImage").style.display = "block";
+    }
+  </script>
 
 </body>
 </html>
