@@ -1,108 +1,44 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Nachbarschaft Galgenberg</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f7f5;
-      color: #2f3a32;
-    }
-
-    header {
-      background-color: #4f7c65;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-    }
-
-    h1, h2 {
-      margin-top: 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 12px 0;
-    }
-
-    a {
-      display: inline-block;
-      text-decoration: none;
-      background-color: #4f7c65;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 8px;
-    }
-
-    a:hover {
-      background-color: #3f6451;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Nachbarschaft Galgenberg</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>👋 Willkommen in unserem Viertel</h1>
+        <p>Eine private Website für Austausch, Termine und Informationen</p>
+    </header>
 
-  <header>
-    <h1>Willkommen in unserem Viertel 👋</h1>
-    <p>Eine private Website für Austausch, Termine und Informationen</p>
-  </header>
+    <main>
+        <article class="box">
+            <h2>Über diese Website</h2>
+            <p>
+                Diese Seite ist für Anwohnerinnen und Anwohner gedacht, um wichtige
+                Informationen zu teilen, Termine zu organisieren und den Austausch
+                in der Nachbarschaft einfacher zu machen.
+            </p>
+        </article>
 
-  <main>
-    <div class="box">
-      <h2>Über diese Website</h2>
-      <p>
-        Diese Seite ist für Anwohnerinnen und Anwohner gedacht, um wichtige
-        Informationen zu teilen, Termine zu organisieren und den Austausch
-        in der Nachbarschaft einfacher zu machen.
-      </p>
-    </div>
+        <article class="box">
+            <h2>🗂️ Bereiche</h2>
+            <ul>
+                <li><a href="events.html" class="button">📅 Termine</a></li>
+                <li><a href="austausch.html" class="button">💬 Austausch</a></li>
+                <li><a href="infos.html" class="button">ℹ️ Infos</a></li>
+            </ul>
+        </article>
+    </main>
 
-    <div class="box">
-      <h2>Bereiche</h2>
-      <ul>
-        <li><a href="events.html">📅 Termine</a></li>
-        <li><a href="austausch.html">💬 Austausch</a></li>
-        <li><a href="infos.html">ℹ️ Infos</a></li>
-      </ul>
-    </div>
-  </main>
-
-  <footer>
-    Nachbarschaftsseite · privat organisiert
-    <p>
-    <a href="impressum.html">Impressum</a> |
-    <a href="datenschutz.html">Datenschutz</a>
-  </p>
-  </footer>
-
+    <footer>
+        <p>Nachbarschaftsseite · privat organisiert</p>
+        <nav>
+            <a href="impressum.html" class="link">Impressum</a> |
+            <a href="datenschutz.html" class="link">Datenschutzerklärung</a>
+        </nav>
+    </footer>
 </body>
 </html>
