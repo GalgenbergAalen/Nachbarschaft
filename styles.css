@@ -1,56 +1,197 @@
-/* Centralized CSS Styles */
+/* ==========================================
+   NACHBARSCHAFT GALGENBERG - Main Styles
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    margin: 0;
+    background-color: #f4f7f5;
+    color: #2f3a32;
 }
 
 header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 20px;
+    background-color: #4f7c65;
+    color: white;
     text-align: center;
+    padding: 30px 20px;
 }
 
 main {
-    padding: 20px;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
 footer {
-    background: #35424a;
-    color: #ffffff;
     text-align: center;
-    padding: 10px 20px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #4f7c65;
+    text-decoration: none;
+    margin: 0 6px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 .box {
-    background: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.button {
-    background-color: #35424a;
-    color: #ffffff;
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-button {
     border: none;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: inline-block;
-    margin: 5px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
     cursor: pointer;
+    background: #e7efe9;
+    color: #2f3a32;
+    font-size: 14px;
 }
 
-.link {
-    color: #35424a;
+.filter-button.active {
+    background: #4f7c65;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
+.event-link {
+    display: block;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, background 0.2s ease;
+    position: relative;
+}
+
+.event-link:hover {
+    background: #edf4ef;
+    transform: translateY(-2px);
+}
+
+.event-link.active {
+    border: 2px solid #4f7c65;
+}
+
+.next-event {
+    border: 2px solid #ff9800;
+    background: #fff8e6;
+}
+
+.next-event::before {
+    content: "Nächster Termin";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #ff9800;
+    color: white;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+.today-event {
+    border: 2px solid #d32f2f;
+    background: #fdecec;
+}
+
+.today-event::before {
+    content: "Heute";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #d32f2f;
+    color: white;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.event-details {
+    margin-top: 30px;
+}
+
+#selectedEvent {
+    display: none;
+    color: #4f7c65;
+    margin-bottom: 15px;
+}
+
+#eventImage {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#eventImage.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#eventContact {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #4f7c65;
+    display: none;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 14px;
+    background: #4f7c65;
+    color: white;
+    border-radius: 8px;
     text-decoration: none;
 }
 
-.link:hover {
-    text-decoration: underline;
+.back-link:hover {
+    background: #3f6451;
+}
+
+#noResults {
+    display: none;
+    margin-top: 10px;
+    color: #6b756d;
 }
