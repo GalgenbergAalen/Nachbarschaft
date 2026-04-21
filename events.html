@@ -1,357 +1,157 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Events</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f7f5;
-      color: #2f3a32;
-    }
-
-    header {
-      background-color: #4f7c65;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-   
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-size: 14px;
-      margin-top: 40px;
-    }
-
-    footer a {
-      color: #4f7c65;
-      text-decoration: none;
-      margin: 0 6px;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-    
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .filter-button {
-      border: none;
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #e7efe9;
-      color: #2f3a32;
-      font-size: 14px;
-    }
-
-    .filter-button.active {
-      background: #4f7c65;
-      color: white;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      margin-bottom: 12px;
-    }
-
-    .event-link {
-      display: block;
-      padding: 15px;
-      border-radius: 10px;
-      background: #fff;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, background 0.2s ease;
-      position: relative;
-    }
-
-    .event-link:hover {
-      background: #edf4ef;
-      transform: translateY(-2px);
-    }
-
-    .event-link.active {
-      border: 2px solid #4f7c65;
-    }
-
-    .next-event {
-      border: 2px solid #ff9800;
-      background: #fff8e6;
-    }
-
-    .next-event::before {
-      content: "Nächster Termin";
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      background: #ff9800;
-      color: white;
-      padding: 3px 8px;
-      font-size: 12px;
-      border-radius: 6px;
-    }
-
-    .today-event {
-      border: 2px solid #d32f2f;
-      background: #fdecec;
-    }
-
-    .today-event::before {
-      content: "Heute";
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      background: #d32f2f;
-      color: white;
-      padding: 3px 8px;
-      font-size: 12px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .event-details {
-      margin-top: 30px;
-    }
-
-    #selectedEvent {
-      display: none;
-      color: #4f7c65;
-      margin-bottom: 15px;
-    }
-
-    #eventImage {
-      width: 100%;
-      max-height: 400px;
-      object-fit: contain;
-      border-radius: 12px;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    #eventImage.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    #eventContact {
-      margin-top: 10px;
-      font-weight: bold;
-      color: #4f7c65;
-      display: none;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 14px;
-      background: #4f7c65;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    .back-link:hover {
-      background: #3f6451;
-    }
-
-    #noResults {
-      display: none;
-      margin-top: 10px;
-      color: #6b756d;
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-  <h1>Events 📅</h1>
-</header>
-
-<main>
-  <div class="box">
-
-    <div class="filter-bar">
-      <button class="filter-button active" onclick="filterEvents('all', this)">Alle</button>
-      <button class="filter-button" onclick="filterEvents('upcoming', this)">Kommende</button>
-      <button class="filter-button" onclick="filterEvents('past', this)">Vergangene</button>
-    </div>
-
-    <ul id="eventList">
-      <li class="event-item" data-date="2026-04-17">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-05-08">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-06-12">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-07-10">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-08-14">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-09-18">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-10-09">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-    </ul>
-
-    <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
-
-    <div class="event-details">
-      <h2 id="selectedEvent"></h2>
-      <img id="eventImage" src="Event2.png" alt="Event">
-      <p id="eventContact">Ansprechpartner: Renate, Angela, Thomas, Johannes</p>
-    </div>
-
-    <a class="back-link" href="index.html">Zurück</a>
-
-  </div>
-</main>
-
-<script>
-  function showEvent(el) {
-    document.querySelectorAll(".event-link").forEach(e => e.classList.remove("active"));
-    el.classList.add("active");
-
-    const title = document.getElementById("selectedEvent");
-    const image = document.getElementById("eventImage");
-    const contact = document.getElementById("eventContact");
-
-    title.textContent = el.textContent;
-    title.style.display = "block";
-    contact.style.display = "block";
-
-    image.classList.remove("visible");
-
-    setTimeout(() => {
-      title.scrollIntoView({ behavior: "smooth", block: "start" });
-      image.classList.add("visible");
-    }, 100);
-  }
-
-  function filterEvents(type, btn) {
-    document.querySelectorAll(".filter-button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    let visibleCount = 0;
-
-    document.querySelectorAll(".event-item").forEach(item => {
-      const d = new Date(item.dataset.date);
-      d.setHours(0, 0, 0, 0);
-
-      let show = false;
-
-      if (type === "all") show = true;
-      if (type === "upcoming") show = d >= today;
-      if (type === "past") show = d < today;
-
-      item.classList.toggle("hidden", !show);
-
-      if (show) visibleCount++;
-    });
-
-    document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
-  }
-
-  function markSpecialEvents() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const items = document.querySelectorAll(".event-item");
-    let nextItem = null;
-    let nextDate = null;
-    let todayFound = false;
-
-    items.forEach(item => {
-      const link = item.querySelector(".event-link");
-      link.classList.remove("today-event", "next-event");
-
-      const d = new Date(item.dataset.date);
-      d.setHours(0, 0, 0, 0);
-
-      if (d.getTime() === today.getTime()) {
-        link.classList.add("today-event");
-        todayFound = true;
-      }
-    });
-
-    if (!todayFound) {
-      items.forEach(item => {
-        const d = new Date(item.dataset.date);
-        d.setHours(0, 0, 0, 0);
-
-        if (d >= today && (!nextDate || d < nextDate)) {
-          nextDate = d;
-          nextItem = item;
-        }
-      });
-
-      if (nextItem) {
-        nextItem.querySelector(".event-link").classList.add("next-event");
-      }
-    }
-  }
-
-  markSpecialEvents();
-</script>
-
-<footer>
-  Nachbarschaftsseite · privat organisiert
-  <p>
-    <a href="impressum.html">Impressum</a> |
-    <a href="datenschutz.html">Datenschutz</a>
-  </p>
-</footer>
-
-</body>
-</html>
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.events-controls {
+    margin-bottom: 20px;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.filter-button {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #e7efe9;
+    color: #2f3a32;
+    font-size: 14px;
+}
+
+.filter-button.active {
+    background: #4f7c65;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
+.event-link {
+    display: block;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, background 0.2s ease;
+    position: relative;
+}
+
+.event-link:hover {
+    background: #edf4ef;
+    transform: translateY(-2px);
+}
+
+.event-link.active {
+    border: 2px solid #4f7c65;
+}
+
+.next-event {
+    border: 2px solid #ff9800;
+    background: #fff8e6;
+}
+
+.next-event::before {
+    content: "Nächster Termin";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #ff9800;
+    color: white;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+.today-event {
+    border: 2px solid #d32f2f;
+    background: #fdecec;
+}
+
+.today-event::before {
+    content: "Heute";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #d32f2f;
+    color: white;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.event-details {
+    margin-top: 30px;
+}
+
+#selectedEvent {
+    display: none;
+    color: #4f7c65;
+    margin-bottom: 15px;
+}
+
+#eventImage {
+    display: none;
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#eventImage.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#eventContact {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #4f7c65;
+    display: none;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #4f7c65;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    background: #3f6451;
+}
+
+.back-link-inline {
+    margin-top: 0;
+}
+
+#noResults {
+    display: none;
+    margin-top: 10px;
+    color: #6b756d;
+}
