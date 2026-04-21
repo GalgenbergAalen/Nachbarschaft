@@ -239,36 +239,41 @@ a:hover {
     color: #6b756d;
 }
 
-/* ==========================================
+ ==========================================
    Navigation
    ========================================== */
 
 nav {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 nav ul {
     list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
     padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-bottom: 12px;
 }
 
 nav a {
-    display: inline-block;
-    padding: 10px 14px;
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border-radius: 8px;
+    display: block;
+    background-color: white;
+    color: #4f7c65;
     text-decoration: none;
-    transition: background 0.2s ease;
+    padding: 14px 18px;
+    border: 2px solid #4f7c65;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 nav a:hover {
-    background: rgba(255, 255, 255, 0.28);
+    background-color: #4f7c65;
+    color: white;
     text-decoration: none;
+    transform: translateY(-2px);
 }
 
 /* ==========================================
