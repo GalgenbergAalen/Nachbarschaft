@@ -71,29 +71,48 @@ a:hover {
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.box:last-child {
+    margin-bottom: 0;
 }
 
 /* ==========================================
-   Buttons / Links
+   Startseiten-Links / Button-Liste
    ========================================== */
 
-.back-link {
-    display: inline-block;
-    padding: 10px 14px;
-    background: #4f7c65;
+main article ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main article ul li {
+    margin-bottom: 12px;
+}
+
+main article ul li:last-child {
+    margin-bottom: 0;
+}
+
+.link-button {
+    display: block;
+    background-color: white;
+    color: #4f7c65;
+    text-decoration: none;
+    padding: 14px 18px;
+    border: 2px solid #4f7c65;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.link-button:hover {
+    background-color: #4f7c65;
     color: white;
-    border-radius: 8px;
     text-decoration: none;
-    transition: background 0.2s ease;
-}
-
-.back-link:hover {
-    background: #3f6451;
-    text-decoration: none;
-}
-
-.back-link-inline {
-    margin-top: 0;
+    transform: translateY(-2px);
 }
 
 /* ==========================================
@@ -239,8 +258,31 @@ a:hover {
     color: #6b756d;
 }
 
- ==========================================
-   Navigation
+/* ==========================================
+   Buttons / Links
+   ========================================== */
+
+.back-link {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #4f7c65;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.back-link:hover {
+    background: #3f6451;
+    text-decoration: none;
+}
+
+.back-link-inline {
+    margin-top: 0;
+}
+
+/* ==========================================
+   Optional: Navigation mit <nav>
    ========================================== */
 
 nav {
@@ -277,18 +319,6 @@ nav a:hover {
 }
 
 /* ==========================================
-   Startseite / Inhaltsbereiche
-   ========================================== */
-
-.section {
-    margin-bottom: 25px;
-}
-
-.section:last-child {
-    margin-bottom: 0;
-}
-
-/* ==========================================
    Responsive
    ========================================== */
 
@@ -317,9 +347,8 @@ nav a:hover {
         text-align: center;
     }
 
-    nav ul {
-        flex-direction: column;
-        align-items: stretch;
+    .link-button {
+        text-align: center;
     }
 
     nav a {
