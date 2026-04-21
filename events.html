@@ -171,26 +171,13 @@
     }
   }
 
-  function loadFooter() {
-    fetch("footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Fehler beim Laden des Footers:", error);
-      });
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    markSpecialEvents();
-
-    const defaultButton = document.querySelector(".filter-button.active");
-    filterEvents("upcoming", defaultButton);
-
-    loadFooter();
-  });
-</script>
+  <footer>
+  <p>Nachbarschaftsseite · privat organisiert</p>
+  <p>
+    <a href="impressum.html">Impressum</a> |
+    <a href="datenschutz.html">Datenschutz</a>
+  </p>
+</footer>
 
 </body>
 </html>
