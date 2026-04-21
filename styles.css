@@ -36,6 +36,14 @@ footer {
     margin-top: 40px;
 }
 
+footer p {
+    margin-bottom: 8px;
+}
+
+footer p:last-child {
+    margin-bottom: 0;
+}
+
 footer a {
     color: #4f7c65;
     text-decoration: none;
@@ -79,25 +87,23 @@ a:hover {
 }
 
 /* ==========================================
-   Startseiten-Links / Button-Liste
+   Bilder im Inhalt
    ========================================== */
 
-main article ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-main article ul li {
-    margin-bottom: 12px;
-}
-
-main article ul li:last-child {
-    margin-bottom: 0;
-}
-
-.link-button {
+.content-image {
     display: block;
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+/* ==========================================
+   Button-Links
+   ========================================== */
+
+.link-button,
+.back-link {
+    display: inline-block;
     background-color: white;
     color: #4f7c65;
     text-decoration: none;
@@ -108,11 +114,54 @@ main article ul li:last-child {
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.link-button:hover {
+.link-button:hover,
+.back-link:hover {
     background-color: #4f7c65;
     color: white;
     text-decoration: none;
     transform: translateY(-2px);
+}
+
+.back-link-inline {
+    margin-top: 0;
+}
+
+/* ==========================================
+   Startseite Navigation
+   ========================================== */
+
+main article ul,
+.button-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main article ul li,
+.button-list li {
+    margin-bottom: 12px;
+}
+
+main article ul li:last-child,
+.button-list li:last-child {
+    margin-bottom: 0;
+}
+
+.link-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* ==========================================
+   Zusatz-Navigation auf Unterseiten
+   ========================================== */
+
+.sub-nav {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 /* ==========================================
@@ -162,6 +211,8 @@ main article ul li:last-child {
 
 .event-link {
     display: block;
+    width: 100%;
+    text-align: left;
     padding: 15px;
     border-radius: 10px;
     background: #fff;
@@ -169,6 +220,9 @@ main article ul li:last-child {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, background 0.2s ease;
     position: relative;
+    border: none;
+    font-size: 16px;
+    color: #2f3a32;
 }
 
 .event-link:hover {
@@ -259,63 +313,16 @@ main article ul li:last-child {
 }
 
 /* ==========================================
-   Buttons / Links
+   Fokus für Tastaturbedienung
    ========================================== */
 
-.back-link {
-    display: inline-block;
-    padding: 10px 14px;
-    background: #4f7c65;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.2s ease;
-}
-
-.back-link:hover {
-    background: #3f6451;
-    text-decoration: none;
-}
-
-.back-link-inline {
-    margin-top: 0;
-}
-
-/* ==========================================
-   Optional: Navigation mit <nav>
-   ========================================== */
-
-nav {
-    margin-top: 20px;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav li {
-    margin-bottom: 12px;
-}
-
-nav a {
-    display: block;
-    background-color: white;
-    color: #4f7c65;
-    text-decoration: none;
-    padding: 14px 18px;
-    border: 2px solid #4f7c65;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-nav a:hover {
-    background-color: #4f7c65;
-    color: white;
-    text-decoration: none;
-    transform: translateY(-2px);
+.link-button:focus,
+.back-link:focus,
+.filter-button:focus,
+.event-link:focus,
+footer a:focus {
+    outline: 3px solid #ff9800;
+    outline-offset: 2px;
 }
 
 /* ==========================================
@@ -347,11 +354,7 @@ nav a:hover {
         text-align: center;
     }
 
-    .link-button {
-        text-align: center;
-    }
-
-    nav a {
-        text-align: center;
+    .sub-nav {
+        flex-direction: column;
     }
 }
