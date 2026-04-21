@@ -11,6 +11,7 @@
 
   <header>
     <h1>Events 📅</h1>
+    <p>Kommende und vergangene Treffen im Viertel</p>
   </header>
 
   <main>
@@ -24,42 +25,22 @@
         </div>
       </div>
 
-      <ul id="eventList">
-        <li class="event-item" data-date="2026-04-17" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 17. April - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-05-08" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 08. Mai - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-06-12" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 12. Juni - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-07-10" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 10. Juli - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-08-14" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 14. August - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-09-18" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 18. September - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-
-        <li class="event-item" data-date="2026-10-09" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
-          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 09. Oktober - 18 Uhr - Auf ein Bier mit dem Galgenberg</button>
-        </li>
-      </ul>
+      <ul id="eventList"></ul>
 
       <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
 
       <div class="event-details">
         <h2 id="selectedEvent"></h2>
         <img id="eventImage" src="" alt="Eventbild">
-        <p id="eventContact"></p>
+
+        <div id="eventMeta" class="event-meta">
+          <div id="eventStatus" class="status-badge"></div>
+          <p><strong>📍 Treffpunkt:</strong> <span id="eventLocation"></span></p>
+          <p><strong>📝 Beschreibung:</strong> <span id="eventDescription"></span></p>
+          <p><strong>👥 Ansprechpartner:</strong> <span id="eventContact"></span></p>
+          <p><strong>ℹ️ Hinweis:</strong> <span id="eventHint"></span></p>
+          <a id="calendarLink" class="calendar-link" href="#" target="_blank" rel="noopener noreferrer">In Google Kalender übernehmen</a>
+        </div>
       </div>
 
       <a class="back-link" href="index.html">Zurück zur Startseite</a>
@@ -76,32 +57,152 @@
   </footer>
 
   <script>
-    function showEvent(el) {
+    const events = [
+      {
+        date: "2026-04-17",
+        title: "Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
+        hint: "Für alle offen.",
+        status: "Vergangen"
+      },
+      {
+        date: "2026-05-08",
+        title: "Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Gemeinsames Treffen für Gespräche, neue Ideen und lockeren Austausch.",
+        hint: "Bitte gern Nachbarn mitbringen.",
+        status: "Findet statt"
+      },
+      {
+        date: "2026-06-12",
+        title: "Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Nachbarschaftliches Beisammensein mit Raum für neue Vorschläge und Gespräche.",
+        hint: "Für alle offen.",
+        status: "Findet statt"
+      },
+      {
+        date: "2026-07-10",
+        title: "Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Sommerliches Treffen im Viertel mit lockerem Austausch.",
+        hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
+        status: "Wetterabhängig"
+      },
+      {
+        date: "2026-08-14",
+        title: "Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Offenes Treffen für Nachbarn mit Ideen, Fragen oder einfach Lust auf Austausch.",
+        hint: "Neue Gesichter willkommen.",
+        status: "Findet statt"
+      },
+      {
+        date: "2026-09-18",
+        title: "Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Gemeinsames Treffen zur Vernetzung und für Themen aus der Nachbarschaft.",
+        hint: "Für alle offen.",
+        status: "Findet statt"
+      },
+      {
+        date: "2026-10-09",
+        title: "Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        image: "event2.png",
+        contact: "Renate, Angela, Thomas, Johannes",
+        location: "Treffpunkt im Viertel / Galgenberg",
+        description: "Herbstliches Nachbarschaftstreffen mit Gesprächen und Ideen fürs Viertel.",
+        hint: "Bitte warm anziehen, wenn wir draußen stehen.",
+        status: "Findet statt"
+      }
+    ];
+
+    function formatDateForGoogle(dateStr) {
+      return dateStr.replaceAll("-", "") + "T190000/" + dateStr.replaceAll("-", "") + "T210000";
+    }
+
+    function createGoogleCalendarLink(event) {
+      const startDate = event.date.replaceAll("-", "");
+      const endDate = event.date.replaceAll("-", "");
+      const dates = `${startDate}T190000/${endDate}T210000`;
+
+      const params = new URLSearchParams({
+        action: "TEMPLATE",
+        text: event.title,
+        dates: dates,
+        details: `${event.description} Ansprechpartner: ${event.contact}. Hinweis: ${event.hint}`,
+        location: event.location
+      });
+
+      return `https://calendar.google.com/calendar/render?${params.toString()}`;
+    }
+
+    function renderEvents() {
+      const list = document.getElementById("eventList");
+      list.innerHTML = "";
+
+      events.forEach((event, index) => {
+        const li = document.createElement("li");
+        li.className = "event-item";
+        li.dataset.date = event.date;
+        li.dataset.index = index;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "event-link";
+        button.textContent = event.title;
+        button.onclick = () => showEvent(index, button);
+
+        li.appendChild(button);
+        list.appendChild(li);
+      });
+    }
+
+    function showEvent(index, el) {
       document.querySelectorAll(".event-link").forEach(e => e.classList.remove("active"));
       el.classList.add("active");
 
-      const item = el.closest(".event-item");
+      const event = events[index];
+
       const title = document.getElementById("selectedEvent");
       const image = document.getElementById("eventImage");
+      const meta = document.getElementById("eventMeta");
+      const status = document.getElementById("eventStatus");
+      const location = document.getElementById("eventLocation");
+      const description = document.getElementById("eventDescription");
       const contact = document.getElementById("eventContact");
+      const hint = document.getElementById("eventHint");
+      const calendarLink = document.getElementById("calendarLink");
 
-      const imagePath = item.dataset.image;
-      const contactText = item.dataset.contact;
-
-      title.textContent = el.textContent;
+      title.textContent = event.title;
       title.style.display = "block";
 
-      if (contactText) {
-        contact.textContent = "Ansprechpartner: " + contactText;
-        contact.style.display = "block";
-      } else {
-        contact.style.display = "none";
-      }
+      status.textContent = event.status;
+      location.textContent = event.location;
+      description.textContent = event.description;
+      contact.textContent = event.contact;
+      hint.textContent = event.hint;
+      calendarLink.href = createGoogleCalendarLink(event);
+
+      meta.style.display = "block";
 
       image.classList.remove("visible");
 
-      if (imagePath) {
-        image.src = imagePath;
+      if (event.image) {
+        image.src = event.image;
         image.style.display = "block";
 
         setTimeout(() => {
@@ -111,10 +212,6 @@
       } else {
         image.removeAttribute("src");
         image.style.display = "none";
-
-        setTimeout(() => {
-          title.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
       }
     }
 
@@ -156,10 +253,14 @@
 
       items.forEach(item => {
         const link = item.querySelector(".event-link");
-        link.classList.remove("today-event", "next-event");
+        link.classList.remove("today-event", "next-event", "past-event");
 
         const d = new Date(item.dataset.date);
         d.setHours(0, 0, 0, 0);
+
+        if (d < today) {
+          link.classList.add("past-event");
+        }
 
         if (d.getTime() === today.getTime()) {
           link.classList.add("today-event");
@@ -184,6 +285,7 @@
       }
     }
 
+    renderEvents();
     markSpecialEvents();
     filterEvents("upcoming", document.querySelector(".filter-button.active"));
   </script>
