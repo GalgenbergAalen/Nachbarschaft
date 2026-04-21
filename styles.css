@@ -10,7 +10,6 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     background-color: #f4f7f5;
     color: #2f3a32;
 }
@@ -36,6 +35,7 @@ footer {
     margin-top: 40px;
 }
 
+/* Footer-Links bleiben normale Textlinks */
 footer a {
     color: #4f7c65;
     text-decoration: none;
@@ -50,9 +50,64 @@ footer a:hover {
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
 }
 
+/* Überschriften */
+h1, h2, h3 {
+    margin-bottom: 12px;
+}
+
+p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Listen allgemein */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
+/* Grüne Link-Buttons für Bereiche und Hauptnavigation */
+.link-button {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #4f7c65;
+    color: white;
+    text-decoration: none;
+    margin-top: 6px;
+    transition: background 0.2s ease;
+}
+
+.link-button:hover {
+    background: #3f6451;
+}
+
+/* Zurück-Link */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 14px;
+    background: #4f7c65;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.back-link:hover {
+    background: #3f6451;
+}
+
+/* Filterleiste auf Events-Seite */
 .filter-bar {
     display: flex;
     gap: 10px;
@@ -68,6 +123,11 @@ footer a:hover {
     background: #e7efe9;
     color: #2f3a32;
     font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.filter-button:hover {
+    background: #dbe7de;
 }
 
 .filter-button.active {
@@ -75,25 +135,18 @@ footer a:hover {
     color: white;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-li {
-    margin-bottom: 12px;
-}
-
+/* Event-Liste */
 .event-link {
     display: block;
     padding: 15px;
     border-radius: 10px;
     background: #fff;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, background 0.2s ease;
     position: relative;
+    text-decoration: none;
+    color: #2f3a32;
 }
 
 .event-link:hover {
@@ -176,22 +229,41 @@ li {
     display: none;
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 14px;
-    background: #4f7c65;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-.back-link:hover {
-    background: #3f6451;
-}
-
 #noResults {
     display: none;
     margin-top: 10px;
     color: #6b756d;
+}
+
+/* Bilder allgemein */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Kleinere Bildschirme */
+@media (max-width: 600px) {
+    header {
+        padding: 24px 16px;
+    }
+
+    main {
+        margin: 20px auto;
+        padding: 0 14px;
+    }
+
+    .box {
+        padding: 20px;
+    }
+
+    .filter-bar {
+        gap: 8px;
+    }
+
+    .filter-button,
+    .link-button,
+    .back-link {
+        font-size: 14px;
+    }
 }
