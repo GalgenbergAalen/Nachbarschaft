@@ -7,177 +7,186 @@
   <title>Events</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<header>
-  <h1>Events 📅</h1>
-</header>
+  <header>
+    <h1>Events 📅</h1>
+  </header>
 
-<main>
-  <div class="box">
+  <main>
+    <div class="box">
 
-    <div class="events-controls">
-      <div class="filter-bar">
-        <button class="filter-button active" onclick="filterEvents('upcoming', this)">Kommende</button>
-        <button class="filter-button" onclick="filterEvents('past', this)">Vergangene</button>
-        <button class="filter-button" onclick="filterEvents('all', this)">Alle</button>
+      <div class="events-controls">
+        <div class="filter-bar">
+          <button class="filter-button active" onclick="filterEvents('upcoming', this)">Kommende</button>
+          <button class="filter-button" onclick="filterEvents('past', this)">Vergangene</button>
+          <button class="filter-button" onclick="filterEvents('all', this)">Alle</button>
+        </div>
+
+        <a class="back-link back-link-inline" href="index.html">Zurück</a>
       </div>
 
-      <a class="back-link back-link-inline" href="index.html">Zurück</a>
+      <ul id="eventList">
+        <li class="event-item" data-date="2026-04-17" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-05-08" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-06-12" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-07-10" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-08-14" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-09-18" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+
+        <li class="event-item" data-date="2026-10-09" data-image="Event2.png" data-contact="Renate, Angela, Thomas, Johannes">
+          <button type="button" class="event-link" onclick="showEvent(this)">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg</button>
+        </li>
+      </ul>
+
+      <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
+
+      <div class="event-details">
+        <h2 id="selectedEvent"></h2>
+        <img id="eventImage" src="" alt="Eventbild">
+        <p id="eventContact"></p>
+      </div>
+
     </div>
+  </main>
 
-    <ul id="eventList">
-      <li class="event-item" data-date="2026-04-17">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
+  <footer>
+    <p>Nachbarschaftsseite · privat organisiert</p>
+    <p>
+      <a href="impressum.html">Impressum</a> |
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
+  </footer>
 
-      <li class="event-item" data-date="2026-05-08">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
+  <script>
+    function showEvent(el) {
+      document.querySelectorAll(".event-link").forEach(e => e.classList.remove("active"));
+      el.classList.add("active");
 
-      <li class="event-item" data-date="2026-06-12">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
+      const item = el.closest(".event-item");
+      const title = document.getElementById("selectedEvent");
+      const image = document.getElementById("eventImage");
+      const contact = document.getElementById("eventContact");
 
-      <li class="event-item" data-date="2026-07-10">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
+      const imagePath = item.dataset.image;
+      const contactText = item.dataset.contact;
 
-      <li class="event-item" data-date="2026-08-14">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
+      title.textContent = el.textContent;
+      title.style.display = "block";
 
-      <li class="event-item" data-date="2026-09-18">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-
-      <li class="event-item" data-date="2026-10-09">
-        <div class="event-link" onclick="showEvent(this)">Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg</div>
-      </li>
-    </ul>
-
-    <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
-
-    <div class="event-details">
-      <h2 id="selectedEvent"></h2>
-      <img id="eventImage" src="" alt="Event">
-      <p id="eventContact">Ansprechpartner: Renate, Angela, Thomas, Johannes</p>
-    </div>
-
-  </div>
-</main>
-
-<div id="footer-placeholder"></div>
-
-<script>
-  function showEvent(el) {
-    document.querySelectorAll(".event-link").forEach(e => e.classList.remove("active"));
-    el.classList.add("active");
-
-    const title = document.getElementById("selectedEvent");
-    const image = document.getElementById("eventImage");
-    const contact = document.getElementById("eventContact");
-
-    title.textContent = el.textContent;
-    title.style.display = "block";
-    contact.style.display = "block";
-
-    image.classList.remove("visible");
-
-    const imagePath = "Event2.png";
-
-    if (imagePath) {
-      image.src = imagePath;
-      image.style.display = "block";
-
-      setTimeout(() => {
-        title.scrollIntoView({ behavior: "smooth", block: "start" });
-        image.classList.add("visible");
-      }, 100);
-    } else {
-      image.removeAttribute("src");
-      image.style.display = "none";
-
-      setTimeout(() => {
-        title.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
-  }
-
-  function filterEvents(type, btn) {
-    document.querySelectorAll(".filter-button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    let visibleCount = 0;
-
-    document.querySelectorAll(".event-item").forEach(item => {
-      const d = new Date(item.dataset.date);
-      d.setHours(0, 0, 0, 0);
-
-      let show = false;
-
-      if (type === "all") show = true;
-      if (type === "upcoming") show = d >= today;
-      if (type === "past") show = d < today;
-
-      item.classList.toggle("hidden", !show);
-
-      if (show) visibleCount++;
-    });
-
-    document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
-  }
-
-  function markSpecialEvents() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const items = document.querySelectorAll(".event-item");
-    let nextItem = null;
-    let nextDate = null;
-    let todayFound = false;
-
-    items.forEach(item => {
-      const link = item.querySelector(".event-link");
-      link.classList.remove("today-event", "next-event");
-
-      const d = new Date(item.dataset.date);
-      d.setHours(0, 0, 0, 0);
-
-      if (d.getTime() === today.getTime()) {
-        link.classList.add("today-event");
-        todayFound = true;
+      if (contactText) {
+        contact.textContent = "Ansprechpartner: " + contactText;
+        contact.style.display = "block";
+      } else {
+        contact.style.display = "none";
       }
-    });
 
-    if (!todayFound) {
-      items.forEach(item => {
+      image.classList.remove("visible");
+
+      if (imagePath) {
+        image.src = imagePath;
+        image.style.display = "block";
+
+        setTimeout(() => {
+          title.scrollIntoView({ behavior: "smooth", block: "start" });
+          image.classList.add("visible");
+        }, 100);
+      } else {
+        image.removeAttribute("src");
+        image.style.display = "none";
+
+        setTimeout(() => {
+          title.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+
+    function filterEvents(type, btn) {
+      document.querySelectorAll(".filter-button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      let visibleCount = 0;
+
+      document.querySelectorAll(".event-item").forEach(item => {
         const d = new Date(item.dataset.date);
         d.setHours(0, 0, 0, 0);
 
-        if (d >= today && (!nextDate || d < nextDate)) {
-          nextDate = d;
-          nextItem = item;
+        let show = false;
+
+        if (type === "all") show = true;
+        if (type === "upcoming") show = d >= today;
+        if (type === "past") show = d < today;
+
+        item.classList.toggle("hidden", !show);
+
+        if (show) visibleCount++;
+      });
+
+      document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    function markSpecialEvents() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const items = document.querySelectorAll(".event-item");
+      let nextItem = null;
+      let nextDate = null;
+      let todayFound = false;
+
+      items.forEach(item => {
+        const link = item.querySelector(".event-link");
+        link.classList.remove("today-event", "next-event");
+
+        const d = new Date(item.dataset.date);
+        d.setHours(0, 0, 0, 0);
+
+        if (d.getTime() === today.getTime()) {
+          link.classList.add("today-event");
+          todayFound = true;
         }
       });
 
-      if (nextItem) {
-        nextItem.querySelector(".event-link").classList.add("next-event");
+      if (!todayFound) {
+        items.forEach(item => {
+          const d = new Date(item.dataset.date);
+          d.setHours(0, 0, 0, 0);
+
+          if (d >= today && (!nextDate || d < nextDate)) {
+            nextDate = d;
+            nextItem = item;
+          }
+        });
+
+        if (nextItem) {
+          nextItem.querySelector(".event-link").classList.add("next-event");
+        }
       }
     }
-  }
 
-  <footer>
-  <p>Nachbarschaftsseite · privat organisiert</p>
-  <p>
-    <a href="impressum.html">Impressum</a> |
-    <a href="datenschutz.html">Datenschutz</a>
-  </p>
-</footer>
+    markSpecialEvents();
+    filterEvents("upcoming", document.querySelector(".filter-button.active"));
+  </script>
 
 </body>
 </html>
