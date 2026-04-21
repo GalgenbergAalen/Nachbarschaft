@@ -3,67 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Impressum</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f7f5;
-      color: #2f3a32;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #4f7c65;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    h1, h2 {
-      margin-top: 0;
-    }
-
-    a {
-      color: #4f7c65;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .nav-links {
-      margin-bottom: 20px;
-    }
-
-    .nav-links a {
-      display: inline-block;
-      margin-right: 15px;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #5f6f65;
-      font-size: 0.95rem;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -73,9 +15,9 @@
   </header>
 
   <main>
-    <div class="nav-links">
-      <a href="index.html">← Zur Startseite</a>
-      <a href="datenschutz.html">Datenschutzerklärung</a>
+    <div class="sub-nav">
+      <a href="index.html" class="back-link">← Zur Startseite</a>
+      <a href="datenschutz.html" class="back-link">Datenschutzerklärung</a>
     </div>
 
     <div class="box">
@@ -85,9 +27,11 @@
         Johannes Kohler<br>
         Damaschkestraße 24<br>
         73434 Aalen<br>
-        Deutschland
-        E-Mail: <a href="mailto:[GalgenbergAalen@tutanota.de]">[GalgenbergAalen@tutanota.de]</a>
+        Deutschland<br>
+        E-Mail:
+        <a href="mailto:GalgenbergAalen@tutanota.de">GalgenbergAalen@tutanota.de</a>
       </p>
+
       <p>
         <strong>Verantwortlich für den Inhalt:</strong><br>
         Johannes Kohler<br>
@@ -96,14 +40,18 @@
       </p>
 
       <p>
-        Diese Website ist eine privat organisierte Nachbarschaftsseite
-        mit Informationen zu Terminen, Aktivitäten und Austausch im Viertel.
+        Diese Website ist eine privat organisierte Nachbarschaftsseite mit Informationen zu
+        Terminen, Aktivitäten und Austausch im Viertel.
       </p>
     </div>
   </main>
 
   <footer>
-    © Nachbarschaft Galgenberg
+    <p>Nachbarschaftsseite · privat organisiert</p>
+    <p>
+      <a href="index.html">Startseite</a> |
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
   </footer>
 
 </body>
