@@ -243,6 +243,17 @@ a:hover {
     color: white;
 }
 
+.all-calendar-box {
+    margin-bottom: 25px;
+}
+
+.small-note {
+    font-size: 14px;
+    color: #5f6f65;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
 #eventList {
     list-style: none;
     padding: 0;
