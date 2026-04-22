@@ -1,3 +1,7 @@
+/* ==========================================
+   contact.js
+   ========================================== */
+
 const CONTACT_EMAIL = "galgenbergaalen@tutanota.de";
 
 function insertContactLinks() {
