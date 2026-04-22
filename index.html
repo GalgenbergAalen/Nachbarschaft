@@ -49,9 +49,9 @@
 
     <article class="box highlight-box">
       <h2>Nächster Termin</h2>
-      <p class="next-date">Freitag, 08. Mai 2026 · 19 Uhr</p>
-      <p class="next-title">Auf ein Bier mit dem Galgenberg</p>
-      <p>Ein offenes Nachbarschaftstreffen für Gespräche, Kennenlernen und Austausch im Viertel.</p>
+      <p id="nextEventDate" class="next-date">Wird geladen ...</p>
+      <p id="nextEventTitle" class="next-title"></p>
+      <p id="nextEventText"></p>
       <a href="events.html" class="back-link">Zu den Terminen</a>
     </article>
   </main>
@@ -64,6 +64,55 @@
     </p>
   </footer>
 
+  <script src="events-data.js"></script>
   <script src="contact.js"></script>
+  <script>
+    function formatGermanDate(dateStr) {
+      const date = new Date(dateStr + "T00:00:00");
+      return date.toLocaleDateString("de-DE", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function getNextEvent() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const upcomingEvents = events
+        .filter(event => {
+          const eventDate = new Date(event.date + "T00:00:00");
+          eventDate.setHours(0, 0, 0, 0);
+          return eventDate >= today;
+        })
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      return upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+    }
+
+    function renderNextEvent() {
+      const nextEvent = getNextEvent();
+
+      const dateEl = document.getElementById("nextEventDate");
+      const titleEl = document.getElementById("nextEventTitle");
+      const textEl = document.getElementById("nextEventText");
+
+      if (!nextEvent) {
+        dateEl.textContent = "Aktuell ist kein kommender Termin eingetragen.";
+        titleEl.textContent = "";
+        textEl.textContent = "Schau später wieder vorbei.";
+        return;
+      }
+
+      dateEl.textContent = `${formatGermanDate(nextEvent.date)} · ${nextEvent.startTime} Uhr`;
+      titleEl.textContent = nextEvent.title;
+      textEl.textContent = nextEvent.shortText || nextEvent.description || "";
+    }
+
+    document.addEventListener("DOMContentLoaded", renderNextEvent);
+  </script>
+
 </body>
 </html>
