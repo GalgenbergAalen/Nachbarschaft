@@ -159,6 +159,11 @@ a:hover {
     line-height: 1;
 }
 
+.compact-calendar-link {
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
 .sub-nav {
     margin-bottom: 20px;
     display: flex;
@@ -243,15 +248,22 @@ a:hover {
     color: white;
 }
 
-.all-calendar-box {
-    margin-bottom: 25px;
+.calendar-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #f8fbf9;
+    border: 1px solid #d9e7de;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
 }
 
-.small-note {
-    font-size: 14px;
-    color: #5f6f65;
-    margin-top: 12px;
-    margin-bottom: 0;
+.calendar-strip p {
+    margin: 0;
+    color: #3d5f4d;
 }
 
 #eventList {
@@ -442,14 +454,16 @@ footer a:focus {
 
     .filter-bar,
     .sub-nav,
-    .calendar-buttons {
+    .calendar-buttons,
+    .calendar-strip {
         flex-direction: column;
         align-items: stretch;
     }
 
     .filter-button,
     .back-link,
-    .calendar-link {
+    .calendar-link,
+    .compact-calendar-link {
         width: 100%;
         text-align: center;
     }
