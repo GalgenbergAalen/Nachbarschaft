@@ -39,7 +39,15 @@
           <p><strong>📝 Beschreibung:</strong> <span id="eventDescription"></span></p>
           <p><strong>👥 Ansprechpartner:</strong> <span id="eventContact"></span></p>
           <p><strong>ℹ️ Hinweis:</strong> <span id="eventHint"></span></p>
-          <a id="calendarLink" class="calendar-link" href="#" target="_blank" rel="noopener noreferrer">In Google Kalender übernehmen</a>
+
+          <div class="calendar-buttons">
+            <a id="googleCalendarLink" class="calendar-link" href="#" target="_blank" rel="noopener noreferrer">
+              In Google Kalender
+            </a>
+            <a id="icsCalendarLink" class="calendar-link" href="#" download="termin.ics">
+              Für iPhone & andere Kalender (.ics)
+            </a>
+          </div>
         </div>
       </div>
 
@@ -60,7 +68,10 @@
     const events = [
       {
         date: "2026-04-17",
-        title: "Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 17. April - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -70,7 +81,10 @@
       },
       {
         date: "2026-05-08",
-        title: "Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 08. Mai - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -80,7 +94,10 @@
       },
       {
         date: "2026-06-12",
-        title: "Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 12. Juni - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -90,7 +107,10 @@
       },
       {
         date: "2026-07-10",
-        title: "Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 10. Juli - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -100,7 +120,10 @@
       },
       {
         date: "2026-08-14",
-        title: "Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 14. August - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -110,7 +133,10 @@
       },
       {
         date: "2026-09-18",
-        title: "Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 18. September - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -120,7 +146,10 @@
       },
       {
         date: "2026-10-09",
-        title: "Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg",
+        startTime: "19:00",
+        endTime: "21:00",
+        title: "Auf ein Bier mit dem Galgenberg",
+        fullTitle: "Freitag, 09. Oktober - 19 Uhr - Auf ein Bier mit dem Galgenberg",
         image: "event2.png",
         contact: "Renate, Angela, Thomas, Johannes",
         location: "Treffpunkt im Viertel / Galgenberg",
@@ -130,24 +159,60 @@
       }
     ];
 
-    function formatDateForGoogle(dateStr) {
-      return dateStr.replaceAll("-", "") + "T190000/" + dateStr.replaceAll("-", "") + "T210000";
+    function formatGermanDate(dateStr) {
+      const date = new Date(dateStr + "T00:00:00");
+      return date.toLocaleDateString("de-DE", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function formatDateForICS(dateStr, timeStr) {
+      return dateStr.replaceAll("-", "") + "T" + timeStr.replace(":", "") + "00";
     }
 
     function createGoogleCalendarLink(event) {
-      const startDate = event.date.replaceAll("-", "");
-      const endDate = event.date.replaceAll("-", "");
-      const dates = `${startDate}T190000/${endDate}T210000`;
+      const start = formatDateForICS(event.date, event.startTime);
+      const end = formatDateForICS(event.date, event.endTime);
 
       const params = new URLSearchParams({
         action: "TEMPLATE",
         text: event.title,
-        dates: dates,
+        dates: `${start}/${end}`,
         details: `${event.description} Ansprechpartner: ${event.contact}. Hinweis: ${event.hint}`,
         location: event.location
       });
 
       return `https://calendar.google.com/calendar/render?${params.toString()}`;
+    }
+
+    function createICSContent(event) {
+      const start = formatDateForICS(event.date, event.startTime);
+      const end = formatDateForICS(event.date, event.endTime);
+      const description = `${event.description}\\nAnsprechpartner: ${event.contact}\\nHinweis: ${event.hint}`;
+
+      return [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Nachbarschaft Galgenberg//DE",
+        "BEGIN:VEVENT",
+        `UID:${event.date}-${event.title.replace(/\s+/g, "-").toLowerCase()}@galgenberg`,
+        `DTSTAMP:${start}`,
+        `DTSTART:${start}`,
+        `DTEND:${end}`,
+        `SUMMARY:${event.title}`,
+        `DESCRIPTION:${description}`,
+        `LOCATION:${event.location}`,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+    }
+
+    function createICSDataUrl(event) {
+      const icsContent = createICSContent(event);
+      return "data:text/calendar;charset=utf-8," + encodeURIComponent(icsContent);
     }
 
     function renderEvents() {
@@ -163,7 +228,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = "event-link";
-        button.textContent = event.title;
+        button.textContent = `${formatGermanDate(event.date)} – ${event.startTime} Uhr – ${event.title}`;
         button.onclick = () => showEvent(index, button);
 
         li.appendChild(button);
@@ -185,9 +250,10 @@
       const description = document.getElementById("eventDescription");
       const contact = document.getElementById("eventContact");
       const hint = document.getElementById("eventHint");
-      const calendarLink = document.getElementById("calendarLink");
+      const googleCalendarLink = document.getElementById("googleCalendarLink");
+      const icsCalendarLink = document.getElementById("icsCalendarLink");
 
-      title.textContent = event.title;
+      title.textContent = event.fullTitle;
       title.style.display = "block";
 
       status.textContent = event.status;
@@ -195,7 +261,10 @@
       description.textContent = event.description;
       contact.textContent = event.contact;
       hint.textContent = event.hint;
-      calendarLink.href = createGoogleCalendarLink(event);
+
+      googleCalendarLink.href = createGoogleCalendarLink(event);
+      icsCalendarLink.href = createICSDataUrl(event);
+      icsCalendarLink.setAttribute("download", `${event.date}-${event.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.ics`);
 
       meta.style.display = "block";
 
@@ -225,7 +294,7 @@
       let visibleCount = 0;
 
       document.querySelectorAll(".event-item").forEach(item => {
-        const d = new Date(item.dataset.date);
+        const d = new Date(item.dataset.date + "T00:00:00");
         d.setHours(0, 0, 0, 0);
 
         let show = false;
@@ -255,7 +324,7 @@
         const link = item.querySelector(".event-link");
         link.classList.remove("today-event", "next-event", "past-event");
 
-        const d = new Date(item.dataset.date);
+        const d = new Date(item.dataset.date + "T00:00:00");
         d.setHours(0, 0, 0, 0);
 
         if (d < today) {
@@ -270,7 +339,7 @@
 
       if (!todayFound) {
         items.forEach(item => {
-          const d = new Date(item.dataset.date);
+          const d = new Date(item.dataset.date + "T00:00:00");
           d.setHours(0, 0, 0, 0);
 
           if (d >= today && (!nextDate || d < nextDate)) {
