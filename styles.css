@@ -101,11 +101,6 @@ a:hover {
     border: 2px solid #4f7c65;
 }
 
-.info-grid {
-    display: grid;
-    gap: 16px;
-}
-
 .content-image {
     display: block;
     width: 100%;
@@ -153,6 +148,15 @@ a:hover {
 .calendar-link {
     margin-top: 0;
     text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.calendar-icon {
+    font-size: 16px;
+    line-height: 1;
 }
 
 .sub-nav {
