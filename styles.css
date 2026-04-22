@@ -318,6 +318,25 @@ a:hover {
     font-weight: bold;
 }
 
+.cancelled-event {
+    border: 2px solid #757575;
+    background: #f4f4f4;
+    opacity: 0.95;
+}
+
+.cancelled-event::before {
+    content: "Abgesagt";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #757575;
+    color: white;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
 .past-event {
     opacity: 0.75;
 }
@@ -375,6 +394,23 @@ a:hover {
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 12px;
+}
+
+.status-cancelled {
+    background: #757575;
+}
+
+.status-today {
+    background: #d32f2f;
+}
+
+.cancel-note {
+    background: #fff3cd;
+    border-left: 4px solid #ff9800;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    color: #5b4a00;
 }
 
 .calendar-buttons {
