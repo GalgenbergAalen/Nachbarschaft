@@ -25,6 +25,24 @@
         </div>
       </div>
 
+      <div class="box highlight-box all-calendar-box">
+        <h2>Alle Termine in den Kalender</h2>
+        <p>
+          Mit der Kalenderdatei kannst du alle Termine auf einmal in iPhone, Apple Kalender,
+          Outlook und viele andere Kalender übernehmen.
+        </p>
+        <div class="calendar-buttons">
+          <a id="allIcsCalendarLink" class="calendar-link" href="#" download="alle-termine.ics">
+            <span class="calendar-icon">🗓️</span>
+            <span>Alle Termine als .ics</span>
+          </a>
+        </div>
+        <p class="small-note">
+          Hinweis: Für Google Kalender gibt es leider keinen zuverlässigen Ein-Klick-Link,
+          um mehrere Termine gleichzeitig direkt zu übernehmen. Dafür ist die .ics-Datei die beste Lösung.
+        </p>
+      </div>
+
       <ul id="eventList"></ul>
 
       <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
@@ -215,8 +233,7 @@
     }
 
     function createICSDataUrl(event) {
-      const icsContent = createICSContent(event);
-      return "data:text/calendar;charset=utf-8," + encodeURIComponent(icsContent);
+      return "data:text/calendar;charset=utf-8," + encodeURIComponent(createICSContent(event));
     }
 
     function createICSFilename(event) {
@@ -228,6 +245,39 @@
         .replace(/^-+|-+$/g, "");
 
       return `${event.date}-${slug}.ics`;
+    }
+
+    function createAllICSContent(eventsArray) {
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Nachbarschaft Galgenberg//DE"
+      ];
+
+      eventsArray.forEach((event) => {
+        const start = formatDateForICS(event.date, event.startTime);
+        const end = formatDateForICS(event.date, event.endTime);
+        const safeTitle = event.title.replace(/[\r\n]+/g, " ");
+        const safeLocation = event.location.replace(/[\r\n]+/g, " ");
+        const description = `${event.description}\\nAnsprechpartner: ${event.contact}\\nHinweis: ${event.hint}`;
+
+        lines.push("BEGIN:VEVENT");
+        lines.push(`UID:${event.date}-${safeTitle.replace(/\s+/g, "-").toLowerCase()}@galgenberg`);
+        lines.push(`DTSTAMP:${start}`);
+        lines.push(`DTSTART:${start}`);
+        lines.push(`DTEND:${end}`);
+        lines.push(`SUMMARY:${safeTitle}`);
+        lines.push(`DESCRIPTION:${description}`);
+        lines.push(`LOCATION:${safeLocation}`);
+        lines.push("END:VEVENT");
+      });
+
+      lines.push("END:VCALENDAR");
+      return lines.join("\r\n");
+    }
+
+    function createAllICSDataUrl() {
+      return "data:text/calendar;charset=utf-8," + encodeURIComponent(createAllICSContent(events));
     }
 
     function renderEvents() {
@@ -372,6 +422,10 @@
     renderEvents();
     markSpecialEvents();
     filterEvents("upcoming", document.querySelector(".filter-button.active"));
+
+    const allIcsCalendarLink = document.getElementById("allIcsCalendarLink");
+    allIcsCalendarLink.href = createAllICSDataUrl();
+    allIcsCalendarLink.setAttribute("download", "nachbarschaft-galgenberg-alle-termine.ics");
   </script>
 
 </body>
