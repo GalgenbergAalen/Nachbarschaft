@@ -42,10 +42,12 @@
 
           <div class="calendar-buttons">
             <a id="googleCalendarLink" class="calendar-link" href="#" target="_blank" rel="noopener noreferrer">
-              In Google Kalender
+              <span class="calendar-icon">📅</span>
+              <span>In Google Kalender</span>
             </a>
             <a id="icsCalendarLink" class="calendar-link" href="#" download="termin.ics">
-              Für iPhone & andere Kalender (.ics)
+              <span class="calendar-icon">🍎</span>
+              <span>Für iPhone & andere Kalender (.ics)</span>
             </a>
           </div>
         </div>
@@ -191,6 +193,8 @@
     function createICSContent(event) {
       const start = formatDateForICS(event.date, event.startTime);
       const end = formatDateForICS(event.date, event.endTime);
+      const safeTitle = event.title.replace(/[\r\n]+/g, " ");
+      const safeLocation = event.location.replace(/[\r\n]+/g, " ");
       const description = `${event.description}\\nAnsprechpartner: ${event.contact}\\nHinweis: ${event.hint}`;
 
       return [
@@ -198,13 +202,13 @@
         "VERSION:2.0",
         "PRODID:-//Nachbarschaft Galgenberg//DE",
         "BEGIN:VEVENT",
-        `UID:${event.date}-${event.title.replace(/\s+/g, "-").toLowerCase()}@galgenberg`,
+        `UID:${event.date}-${safeTitle.replace(/\s+/g, "-").toLowerCase()}@galgenberg`,
         `DTSTAMP:${start}`,
         `DTSTART:${start}`,
         `DTEND:${end}`,
-        `SUMMARY:${event.title}`,
+        `SUMMARY:${safeTitle}`,
         `DESCRIPTION:${description}`,
-        `LOCATION:${event.location}`,
+        `LOCATION:${safeLocation}`,
         "END:VEVENT",
         "END:VCALENDAR"
       ].join("\r\n");
@@ -213,6 +217,17 @@
     function createICSDataUrl(event) {
       const icsContent = createICSContent(event);
       return "data:text/calendar;charset=utf-8," + encodeURIComponent(icsContent);
+    }
+
+    function createICSFilename(event) {
+      const slug = event.title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+      return `${event.date}-${slug}.ics`;
     }
 
     function renderEvents() {
@@ -264,7 +279,7 @@
 
       googleCalendarLink.href = createGoogleCalendarLink(event);
       icsCalendarLink.href = createICSDataUrl(event);
-      icsCalendarLink.setAttribute("download", `${event.date}-${event.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.ics`);
+      icsCalendarLink.setAttribute("download", createICSFilename(event));
 
       meta.style.display = "block";
 
