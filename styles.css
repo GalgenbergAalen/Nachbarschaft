@@ -192,6 +192,17 @@ a:hover {
    Startseite
    ========================================== */
 
+.next-event-status {
+    display: inline-block;
+    background: #757575;
+    color: white;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
 .next-date {
     font-size: 20px;
     font-weight: bold;
@@ -202,6 +213,11 @@ a:hover {
 .next-title {
     font-size: 18px;
     margin-bottom: 10px;
+}
+
+.is-cancelled {
+    text-decoration: line-through;
+    opacity: 0.7;
 }
 
 .muted-text {
