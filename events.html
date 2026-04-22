@@ -191,17 +191,25 @@
       const list = document.getElementById("eventList");
       list.innerHTML = "";
 
-      events.forEach((event, index) => {
+      const sortedEvents = [...events].sort((a, b) => {
+        const dateTimeA = new Date(`${a.date}T${a.startTime}:00`);
+        const dateTimeB = new Date(`${b.date}T${b.startTime}:00`);
+        return dateTimeA - dateTimeB;
+      });
+
+      sortedEvents.forEach((event) => {
+        const originalIndex = events.indexOf(event);
+
         const li = document.createElement("li");
         li.className = "event-item";
         li.dataset.date = event.date;
-        li.dataset.index = index;
+        li.dataset.index = originalIndex;
 
         const button = document.createElement("button");
         button.type = "button";
         button.className = "event-link";
         button.textContent = `${formatGermanDate(event.date)} – ${event.startTime} Uhr – ${event.title}`;
-        button.onclick = () => showEvent(index, button);
+        button.onclick = () => showEvent(originalIndex, button);
 
         li.appendChild(button);
         list.appendChild(li);
