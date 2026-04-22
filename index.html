@@ -53,6 +53,7 @@
 
     <article class="box highlight-box">
       <h2>Nächster Termin</h2>
+      <p id="nextEventStatus" class="next-event-status" style="display: none;"></p>
       <p id="nextEventDate" class="next-date">Wird geladen ...</p>
       <p id="nextEventTitle" class="next-title"></p>
       <p id="nextEventText"></p>
@@ -85,7 +86,7 @@
         .filter((event) => {
           const eventDate = new Date(event.date + "T00:00:00");
           eventDate.setHours(0, 0, 0, 0);
-          return eventDate >= today && !event.isCancelled;
+          return eventDate >= today;
         })
         .sort((a, b) => new Date(`${a.date}T${a.startTime}:00`) - new Date(`${b.date}T${b.startTime}:00`));
 
@@ -95,23 +96,44 @@
     function renderNextEvent() {
       const nextEvent = getNextEvent();
 
+      const statusEl = document.getElementById("nextEventStatus");
       const dateEl = document.getElementById("nextEventDate");
       const titleEl = document.getElementById("nextEventTitle");
       const textEl = document.getElementById("nextEventText");
       const cancelInfoEl = document.getElementById("nextEventCancelInfo");
 
+      dateEl.classList.remove("is-cancelled");
+      titleEl.classList.remove("is-cancelled");
+      textEl.classList.remove("is-cancelled");
+      statusEl.style.display = "none";
+      statusEl.textContent = "";
+      cancelInfoEl.style.display = "none";
+      cancelInfoEl.textContent = "";
+
       if (!nextEvent) {
         dateEl.textContent = "Aktuell ist kein kommender Termin eingetragen.";
         titleEl.textContent = "";
         textEl.textContent = "Schau später wieder vorbei.";
-        cancelInfoEl.style.display = "none";
         return;
       }
 
       dateEl.textContent = `${formatGermanDate(nextEvent.date)} · ${nextEvent.startTime} Uhr`;
       titleEl.textContent = nextEvent.title;
       textEl.textContent = nextEvent.shortText || nextEvent.description || "";
-      cancelInfoEl.style.display = "none";
+
+      if (nextEvent.isCancelled) {
+        statusEl.textContent = "Fällt leider aus";
+        statusEl.style.display = "block";
+
+        dateEl.classList.add("is-cancelled");
+        titleEl.classList.add("is-cancelled");
+        textEl.classList.add("is-cancelled");
+
+        if (nextEvent.cancelNote) {
+          cancelInfoEl.textContent = nextEvent.cancelNote;
+          cancelInfoEl.style.display = "block";
+        }
+      }
     }
 
     document.addEventListener("DOMContentLoaded", renderNextEvent);
