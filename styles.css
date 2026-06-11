@@ -28,6 +28,48 @@ header p {
     opacity: 0.95;
 }
 
+/* ==========================================
+   Header-Navigation
+   ========================================== */
+
+.header-nav {
+    margin-top: 24px;
+}
+
+.header-button-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.header-button-list li {
+    margin: 0;
+}
+
+.header-link-button {
+    display: inline-block;
+    min-width: 150px;
+    background-color: white;
+    color: #4f7c65;
+    text-decoration: none;
+    padding: 14px 18px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.header-link-button:hover {
+    background-color: #e7efe9;
+    color: #3d5f4d;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
 main {
     max-width: 900px;
     margin: 30px auto;
@@ -466,6 +508,7 @@ a:hover {
 .calendar-link:focus,
 .filter-button:focus,
 .event-link:focus,
+.header-link-button:focus,
 footer a:focus {
     outline: 3px solid #ff9800;
     outline-offset: 2px;
@@ -478,6 +521,15 @@ footer a:focus {
 @media (max-width: 700px) {
     header {
         padding: 24px 16px;
+    }
+
+    .header-button-list {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header-link-button {
+        width: 100%;
     }
 
     main {
