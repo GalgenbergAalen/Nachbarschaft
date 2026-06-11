@@ -20,6 +20,49 @@
   </header>
 
   <main>
+       
+       <section class="newsletter-hero" id="newsletter">
+  <div class="newsletter-hero__content">
+    <p class="newsletter-hero__eyebrow">Termin-Newsletter</p>
+
+    <h2>Keine Termine verpassen</h2>
+
+    <p class="newsletter-hero__text">
+      Erhalte einmal im Monat eine E-Mail mit allen Terminen der nächsten 6 Wochen.
+    </p>
+
+    <form class="newsletter-form" action="/newsletter/subscribe" method="POST">
+      <div class="newsletter-form__row">
+        <label class="sr-only" for="newsletter-email">E-Mail-Adresse</label>
+
+        <input
+          type="email"
+          id="newsletter-email"
+          name="email"
+          placeholder="Deine E-Mail-Adresse"
+          required
+        >
+
+        <button type="submit">
+          Anmelden
+        </button>
+      </div>
+
+      <label class="newsletter-form__consent">
+        <input type="checkbox" name="consent" value="yes" required>
+        <span>
+          Ich möchte einmal im Monat per E-Mail über kommende Termine informiert werden.
+          Ich kann mich jederzeit wieder abmelden.
+        </span>
+      </label>
+    </form>
+
+    <p class="newsletter-hero__hint">
+      Du erhältst zuerst eine Bestätigungsmail. Erst nach deiner Bestätigung bist du angemeldet.
+    </p>
+  </div>
+</section>
+       
     <article class="box">
       <h2>Über diese Website</h2>
       <p>
