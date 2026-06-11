@@ -53,19 +53,21 @@ header p {
 .header-link-button {
     display: inline-block;
     min-width: 150px;
-    background-color: white;
-    color: #4f7c65;
+    background-color: #ffffff;
+    color: #2f3a32;
     text-decoration: none;
     padding: 14px 18px;
-    border: 2px solid white;
+    border: 2px solid #ffffff;
     border-radius: 10px;
+    font-size: 17px;
     font-weight: bold;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .header-link-button:hover {
-    background-color: #e7efe9;
-    color: #3d5f4d;
+    background-color: #f4f7f5;
+    color: #2f3a32;
     text-decoration: none;
     transform: translateY(-2px);
 }
