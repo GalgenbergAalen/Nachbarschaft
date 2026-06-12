@@ -275,7 +275,7 @@ a:hover {
 .weather-note-box {
     margin: 16px 0 20px;
     padding: 14px 16px;
-    background: #fff7ef;
+    background-color: #fff7ef;
     border: 2px solid #f28c28;
     border-radius: 12px;
     color: #b85c00;
