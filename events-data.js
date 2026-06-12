@@ -46,7 +46,7 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: true,
-    cancelNote: "Wetterbedingt"
+    cancelNote: "Heute nur kurzes Stehbier ab 18 Uhr aufgrund des Wetters"
   },
   {
     date: "2026-07-10",
