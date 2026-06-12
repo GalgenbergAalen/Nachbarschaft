@@ -45,7 +45,7 @@ const events = [
     location: "Prof.-Wagner-Platz",
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
-    isCancelled: right,
+    isCancelled: true,
     cancelNote: "Wetterbedingt"
   },
   {
