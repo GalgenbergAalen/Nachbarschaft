@@ -57,7 +57,11 @@
       <p id="nextEventDate" class="next-date">Wird geladen ...</p>
       <p id="nextEventTitle" class="next-title"></p>
       <p id="nextEventText"></p>
-      <p id="nextEventCancelInfo" class="cancel-note" style="display: none;"></p>
+
+      <div class="weather-note-box">
+        Heute nur kurzes Stehbier ab 18 Uhr aufgrund des Wetters
+      </div>
+
       <a href="events.html" class="back-link">Zu den Terminen</a>
     </article>
   </main>
@@ -100,15 +104,9 @@
       const dateEl = document.getElementById("nextEventDate");
       const titleEl = document.getElementById("nextEventTitle");
       const textEl = document.getElementById("nextEventText");
-      const cancelInfoEl = document.getElementById("nextEventCancelInfo");
 
-      dateEl.classList.remove("is-cancelled");
-      titleEl.classList.remove("is-cancelled");
-      textEl.classList.remove("is-cancelled");
       statusEl.style.display = "none";
       statusEl.textContent = "";
-      cancelInfoEl.style.display = "none";
-      cancelInfoEl.textContent = "";
 
       if (!nextEvent) {
         dateEl.textContent = "Aktuell ist kein kommender Termin eingetragen.";
@@ -120,20 +118,6 @@
       dateEl.textContent = `${formatGermanDate(nextEvent.date)} · ${nextEvent.startTime} Uhr`;
       titleEl.textContent = nextEvent.title;
       textEl.textContent = nextEvent.shortText || nextEvent.description || "";
-
-      if (nextEvent.isCancelled) {
-        statusEl.textContent = "Fällt leider aus";
-        statusEl.style.display = "block";
-
-        dateEl.classList.add("is-cancelled");
-        titleEl.classList.add("is-cancelled");
-        textEl.classList.add("is-cancelled");
-
-        if (nextEvent.cancelNote) {
-          cancelInfoEl.textContent = nextEvent.cancelNote;
-          cancelInfoEl.style.display = "block";
-        }
-      }
     }
 
     document.addEventListener("DOMContentLoaded", renderNextEvent);
