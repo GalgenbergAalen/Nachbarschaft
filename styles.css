@@ -393,6 +393,7 @@ a:hover {
     border: 2px solid #757575;
     background: #f4f4f4;
     opacity: 0.95;
+    text-decoration: line-through;
 }
 
 .cancelled-event::before {
