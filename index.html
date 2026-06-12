@@ -58,9 +58,7 @@
       <p id="nextEventTitle" class="next-title"></p>
       <p id="nextEventText"></p>
 
-      <div class="weather-note-box">
-        Heute nur kurzes Stehbier ab 18 Uhr aufgrund des Wetters
-      </div>
+      <div id="nextEventWeatherNote" class="weather-note-box" style="display: none;"></div>
 
       <a href="events.html" class="back-link">Zu den Terminen</a>
     </article>
@@ -104,9 +102,12 @@
       const dateEl = document.getElementById("nextEventDate");
       const titleEl = document.getElementById("nextEventTitle");
       const textEl = document.getElementById("nextEventText");
+      const weatherNoteEl = document.getElementById("nextEventWeatherNote");
 
       statusEl.style.display = "none";
       statusEl.textContent = "";
+      weatherNoteEl.style.display = "none";
+      weatherNoteEl.textContent = "";
 
       if (!nextEvent) {
         dateEl.textContent = "Aktuell ist kein kommender Termin eingetragen.";
@@ -118,6 +119,11 @@
       dateEl.textContent = `${formatGermanDate(nextEvent.date)} · ${nextEvent.startTime} Uhr`;
       titleEl.textContent = nextEvent.title;
       textEl.textContent = nextEvent.shortText || nextEvent.description || "";
+
+      if (nextEvent.isCancelled && nextEvent.cancelNote) {
+        weatherNoteEl.textContent = nextEvent.cancelNote;
+        weatherNoteEl.style.display = "block";
+      }
     }
 
     document.addEventListener("DOMContentLoaded", renderNextEvent);
