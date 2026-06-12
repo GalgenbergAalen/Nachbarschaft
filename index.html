@@ -104,6 +104,10 @@
       const textEl = document.getElementById("nextEventText");
       const weatherNoteEl = document.getElementById("nextEventWeatherNote");
 
+      dateEl.classList.remove("is-cancelled");
+      titleEl.classList.remove("is-cancelled");
+      textEl.classList.remove("is-cancelled");
+
       statusEl.style.display = "none";
       statusEl.textContent = "";
       weatherNoteEl.style.display = "none";
@@ -120,9 +124,18 @@
       titleEl.textContent = nextEvent.title;
       textEl.textContent = nextEvent.shortText || nextEvent.description || "";
 
-      if (nextEvent.isCancelled && nextEvent.cancelNote) {
-        weatherNoteEl.textContent = nextEvent.cancelNote;
-        weatherNoteEl.style.display = "block";
+      if (nextEvent.isCancelled) {
+        statusEl.textContent = "Fällt leider aus";
+        statusEl.style.display = "block";
+
+        dateEl.classList.add("is-cancelled");
+        titleEl.classList.add("is-cancelled");
+        textEl.classList.add("is-cancelled");
+
+        if (nextEvent.cancelNote) {
+          weatherNoteEl.textContent = nextEvent.cancelNote;
+          weatherNoteEl.style.display = "block";
+        }
       }
     }
 
