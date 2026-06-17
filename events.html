@@ -8,21 +8,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Events | Nachbarschaft Galgenberg</title>
+  <title>Termine | Nachbarschaft Galgenberg</title>
   <link rel="canonical" href="https://galgenbergaalen.github.io/Nachbarschaft/events.html">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header>
-    <h1>📅 Events</h1>
+    <h1>📅 Termine</h1>
     <p>Kommende und vergangene Treffen im Viertel</p>
 
     <nav class="header-nav" aria-label="Hauptnavigation">
       <ul class="header-button-list">
-        <li><a class="header-link-button" href="index.html">🏠 Startseite</a></li>
-        <li><a class="header-link-button" href="contact.html">💬 Austausch</a></li>
-        <li><a class="header-link-button" href="info.html">ℹ️ Infos</a></li>
+        <li><a class="header-link-button" href="index.html">🏠 Start</a></li>
+        <li><a class="header-link-button" href="events.html">📅 Termine</a></li>
+        <li><a class="header-link-button" href="austausch.html">💬 Austausch</a></li>
+        <li><a class="header-link-button" href="infos.html">ℹ️ Infos</a></li>
       </ul>
     </nav>
   </header>
@@ -78,13 +79,16 @@
       </a>
     </section>
 
-    <a class="back-link" href="index.html">Zurück zur Startseite</a>
+    <div class="box">
+      <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+    </div>
 
   </main>
 
-  <footer id="footer"></footer>
+  <div id="site-footer"></div>
 
   <script src="events-data.js"></script>
+  <script src="contact.js"></script>
   <script src="footer-include.js"></script>
 
   <script>
@@ -396,6 +400,12 @@
     renderEventList();
     createAllIcsLink();
   </script>
+
+  <script
+    data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
 
 </body>
 </html>
