@@ -23,27 +23,30 @@
         <li><a href="index.html" class="header-link-button">🏠 Start</a></li>
         <li><a href="events.html" class="header-link-button">📅 Termine</a></li>
         <li><a href="austausch.html" class="header-link-button">💬 Austausch</a></li>
+        <li><a href="infos.html" class="header-link-button">ℹ️ Infos</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <div class="box">
-         <h2>Aktuelle Infos aus dem Viertel</h2>
-      <p>Hier findest du wichtige Informationen und Entwicklungen auf und rund um den Galgenberg für alle Anwohnerinnen und Anwohner.</p>
+      <h2>Aktuelle Infos aus dem Viertel</h2>
+      <p>
+        Hier findest du wichtige Informationen und Entwicklungen auf und rund um den Galgenberg
+        für alle Anwohnerinnen und Anwohner.
+      </p>
 
       <img src="event2.png" alt="Plakat oder Hinweis zur Veranstaltung" class="content-image">
     </div>
 
-   
     <div id="infoGroups"></div>
 
     <div class="box">
-      <a href="index.html" class="back-link">Zurück zur Startseite</a>
+      <a href="index.html" class="back-link">← Zurück zur Startseite</a>
     </div>
   </main>
 
-  <footer id="site-footer" class="site-footer"></footer>
+  <div id="site-footer"></div>
 
   <script src="infos-data.js"></script>
   <script src="contact.js"></script>
@@ -73,8 +76,10 @@
       }
 
       const categoryOrder = [
-        "Infos",
-              ];
+        "Eröffnungen",
+        "Laufende und anstehende Bauprojekte",
+        "Weitere Hinweise"
+      ];
 
       const groupedInfos = {};
 
@@ -82,16 +87,23 @@
         if (!groupedInfos[info.category]) {
           groupedInfos[info.category] = [];
         }
+
         groupedInfos[info.category].push(info);
       });
 
+      const knownCategories = categoryOrder.filter((category) => groupedInfos[category]);
+      const additionalCategories = Object.keys(groupedInfos)
+        .filter((category) => !categoryOrder.includes(category))
+        .sort();
+
+      const allCategories = [
+        ...knownCategories,
+        ...additionalCategories
+      ];
+
       let html = "";
 
-      categoryOrder.forEach((category) => {
-        if (!groupedInfos[category]) {
-          return;
-        }
-
+      allCategories.forEach((category) => {
         groupedInfos[category].sort((a, b) => b.date.localeCompare(a.date));
 
         const itemsHtml = groupedInfos[category].map((info) => `
