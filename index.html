@@ -20,9 +20,9 @@
 
     <nav class="header-nav" aria-label="Hauptnavigation">
       <ul class="header-button-list">
-        <li><a href="events.html" class="header-link-button">📅 Termine</a></li>
-        <li><a href="austausch.html" class="header-link-button">💬 Austausch</a></li>
-        <li><a href="infos.html" class="header-link-button">ℹ️ Infos</a></li>
+        <li><a class="header-link-button" href="events.html">📅 Termine</a></li>
+        <li><a class="header-link-button" href="contact.html">💬 Austausch</a></li>
+        <li><a class="header-link-button" href="info.html">ℹ️ Infos</a></li>
       </ul>
     </nav>
   </header>
@@ -35,43 +35,48 @@
         Diese Seite ist für Anwohnerinnen und Anwohner gedacht, um wichtige Informationen zu teilen,
         Termine zu organisieren und den Austausch in der Nachbarschaft einfacher zu machen.
       </p>
-      <p class="muted-text">
+      <p>
         Hier findet ihr kommende Treffen, Hinweise aus dem Viertel und eine einfache Möglichkeit zum Austausch.
       </p>
     </article>
 
-    <article class="box cta-box">
+    <article class="box">
       <h2>Mitmachen</h2>
       <p>
         Du hast eine Idee für ein Treffen, möchtest etwas im Viertel organisieren oder bei bestehenden Aktionen helfen?
       </p>
       <p>
         Dann melde dich gern über die Austausch-Seite oder per E-Mail an
-        <span data-contact-email></span>.
+        <a href="mailto:info@galgenberg-aalen.de">info@galgenberg-aalen.de</a>.
       </p>
     </article>
 
-    <article class="box highlight-box">
+    <article class="box highlight-box" id="nextEventBox">
       <h2>Nächster Termin</h2>
-      <p id="nextEventStatus" class="next-event-status" style="display: none;"></p>
-      <p id="nextEventDate" class="next-date">Wird geladen ...</p>
-      <p id="nextEventTitle" class="next-title"></p>
-      <p id="nextEventText"></p>
-
-      <div id="nextEventWeatherNote" class="weather-note-box" style="display: none;"></div>
-
-      <a href="events.html" class="back-link">Zu den Terminen</a>
+      <div id="nextEventContent">
+        <p>Wird geladen ...</p>
+      </div>
+      <a class="link-button" href="events.html">Zu den Terminen</a>
     </article>
+
   </main>
 
-  <div id="site-footer"></div>
+  <footer id="footer"></footer>
 
   <script src="events-data.js"></script>
-  <script src="contact.js"></script>
   <script src="footer-include.js"></script>
+
   <script>
-    function formatGermanDate(dateStr) {
-      const date = new Date(dateStr + "T00:00:00");
+    function getTodayString() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(`${dateString}T00:00:00`);
       return date.toLocaleDateString("de-DE", {
         weekday: "long",
         day: "2-digit",
@@ -80,71 +85,73 @@
       });
     }
 
+    function shouldShowCancelNote(event) {
+      return event.isCancelled === true &&
+             event.cancelNote &&
+             event.cancelNote.trim() !== "" &&
+             event.date === getTodayString();
+    }
+
     function getNextEvent() {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const today = getTodayString();
 
-      const upcomingEvents = events
-        .filter((event) => {
-          const eventDate = new Date(event.date + "T00:00:00");
-          eventDate.setHours(0, 0, 0, 0);
-          return eventDate >= today;
-        })
-        .sort((a, b) => new Date(`${a.date}T${a.startTime}:00`) - new Date(`${b.date}T${b.startTime}:00`));
-
-      return upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+      return events
+        .filter(event => event.date >= today)
+        .sort((a, b) => {
+          if (a.date === b.date) {
+            return a.startTime.localeCompare(b.startTime);
+          }
+          return a.date.localeCompare(b.date);
+        })[0];
     }
 
     function renderNextEvent() {
+      const container = document.getElementById("nextEventContent");
       const nextEvent = getNextEvent();
 
-      const statusEl = document.getElementById("nextEventStatus");
-      const dateEl = document.getElementById("nextEventDate");
-      const titleEl = document.getElementById("nextEventTitle");
-      const textEl = document.getElementById("nextEventText");
-      const weatherNoteEl = document.getElementById("nextEventWeatherNote");
-
-      dateEl.classList.remove("is-cancelled");
-      titleEl.classList.remove("is-cancelled");
-      textEl.classList.remove("is-cancelled");
-
-      statusEl.style.display = "none";
-      statusEl.textContent = "";
-      weatherNoteEl.style.display = "none";
-      weatherNoteEl.textContent = "";
-
       if (!nextEvent) {
-        dateEl.textContent = "Aktuell ist kein kommender Termin eingetragen.";
-        titleEl.textContent = "";
-        textEl.textContent = "Schau später wieder vorbei.";
+        container.innerHTML = `
+          <p>Aktuell ist kein kommender Termin eingetragen.</p>
+        `;
         return;
       }
 
-      dateEl.textContent = `${formatGermanDate(nextEvent.date)} · ${nextEvent.startTime} Uhr`;
-      titleEl.textContent = nextEvent.title;
-      textEl.textContent = nextEvent.shortText || nextEvent.description || "";
+      const isToday = nextEvent.date === getTodayString();
+      const showCancelNote = shouldShowCancelNote(nextEvent);
+
+      let statusText = "Nächster Termin";
+      let statusClass = "next-event-status";
+
+      if (isToday) {
+        statusText = "Heute";
+        statusClass += " status-today";
+      }
 
       if (nextEvent.isCancelled) {
-        statusEl.textContent = "Fällt leider aus";
-        statusEl.style.display = "block";
-
-        dateEl.classList.add("is-cancelled");
-        titleEl.classList.add("is-cancelled");
-        textEl.classList.add("is-cancelled");
-
-        if (nextEvent.cancelNote) {
-          weatherNoteEl.textContent = nextEvent.cancelNote;
-          weatherNoteEl.style.display = "block";
-        }
+        statusText = isToday ? "Heute mit Hinweis" : "Geänderter Termin";
+        statusClass += " status-cancelled";
       }
+
+      container.innerHTML = `
+        <p class="${statusClass}">${statusText}</p>
+
+        <div class="${nextEvent.isCancelled ? "cancelled-text" : ""}">
+          <p class="next-date">${formatDate(nextEvent.date)} um ${nextEvent.startTime} Uhr</p>
+          <p class="next-title">${nextEvent.title}</p>
+          <p>${nextEvent.shortText}</p>
+          <p class="muted-text"><strong>Treffpunkt:</strong> ${nextEvent.location}</p>
+        </div>
+
+        ${showCancelNote ? `
+          <div class="weather-note-box">
+            ${nextEvent.cancelNote}
+          </div>
+        ` : ""}
+      `;
     }
 
-    document.addEventListener("DOMContentLoaded", renderNextEvent);
+    renderNextEvent();
   </script>
-  <script
-    data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
-    async
-    src="//gc.zgo.at/count.js"
-  ></script>
+
 </body>
 </html>
