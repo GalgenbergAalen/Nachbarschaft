@@ -21,7 +21,7 @@ async function loadFooter() {
     }
   } catch (error) {
     footerContainer.innerHTML = `
-      <footer>
+      <footer class="site-footer">
         <p>Nachbarschaftsseite · privat organisiert</p>
         <p>
           <a href="impressum.html">Impressum</a> |
