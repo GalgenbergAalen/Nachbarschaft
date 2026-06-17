@@ -22,15 +22,107 @@
       <p>Hier stehen wichtige Informationen für alle Anwohnerinnen und Anwohner.</p>
 
       <img src="event2.png" alt="Plakat oder Hinweis zur Veranstaltung" class="content-image">
+    </div>
 
+    <div class="box">
+      <h2>Aktuelle Infos aus dem Viertel</h2>
+      <p>
+        Hier sammeln wir Hinweise zu Eröffnungen, Bauprojekten und weiteren Entwicklungen
+        rund um den Galgenberg und die Umgebung.
+      </p>
+    </div>
+
+    <div id="infoGroups"></div>
+
+    <div class="box">
       <a href="index.html" class="back-link">Zurück zur Startseite</a>
     </div>
   </main>
 
   <div id="site-footer"></div>
 
+  <script src="infos-data.js"></script>
   <script src="contact.js"></script>
   <script src="footer-include.js"></script>
+  <script>
+    function formatDate(dateString) {
+      const date = new Date(`${dateString}T00:00:00`);
+      return date.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+
+    function renderInfoGroups() {
+      const container = document.getElementById("infoGroups");
+
+      if (!window.infos || infos.length === 0) {
+        container.innerHTML = `
+          <div class="box">
+            <h2>Aktuell keine Einträge</h2>
+            <p>Zurzeit sind noch keine weiteren Infos hinterlegt.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const categoryOrder = [
+        "Eröffnungen",
+        "Laufende und anstehende Bauprojekte",
+        "Weitere Hinweise"
+      ];
+
+      const groupedInfos = {};
+
+      infos.forEach((info) => {
+        if (!groupedInfos[info.category]) {
+          groupedInfos[info.category] = [];
+        }
+        groupedInfos[info.category].push(info);
+      });
+
+      let html = "";
+
+      categoryOrder.forEach((category) => {
+        if (!groupedInfos[category]) {
+          return;
+        }
+
+        groupedInfos[category].sort((a, b) => b.date.localeCompare(a.date));
+
+        const itemsHtml = groupedInfos[category].map((info) => `
+          <li class="info-item">
+            <p class="info-item-date">${formatDate(info.date)}</p>
+            <h3>${info.title}</h3>
+            <p class="info-item-meta"><strong>Ort:</strong> ${info.location}</p>
+            <p>${info.shortText}</p>
+            <a
+              class="info-item-link"
+              href="${info.link}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Zum Artikel
+            </a>
+          </li>
+        `).join("");
+
+        html += `
+          <div class="box">
+            <h2>${category}</h2>
+            <ul class="info-list">
+              ${itemsHtml}
+            </ul>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    renderInfoGroups();
+  </script>
   <script
     data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
     async
