@@ -31,7 +31,7 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: false,
-    cancelNote: "Wetterbedingt"
+    cancelNote: ""
   },
   {
     date: "2026-06-12",
@@ -61,7 +61,7 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: false,
-    cancelNote: "Wetterbedingt"
+    cancelNote: ""
   },
   {
     date: "2026-08-14",
@@ -76,7 +76,7 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: false,
-    cancelNote: "Wetterbedingt"
+    cancelNote: ""
   },
   {
     date: "2026-09-18",
@@ -91,7 +91,7 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: false,
-    cancelNote: "Wetterbedingt"
+    cancelNote: ""
   },
   {
     date: "2026-10-09",
@@ -106,6 +106,6 @@ const events = [
     description: "Offenes Nachbarschaftstreffen zum Kennenlernen und Austauschen.",
     hint: "Nur bei sehr schlechtem Wetter ggf. kurzfristige Änderung.",
     isCancelled: false,
-    cancelNote: "Wetterbedingt"
+    cancelNote: ""
   }
 ];
