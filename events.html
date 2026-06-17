@@ -8,103 +8,115 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Events</title>
+  <title>Events | Nachbarschaft Galgenberg</title>
+  <link rel="canonical" href="https://galgenbergaalen.github.io/Nachbarschaft/events.html">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header>
-    <h1>Events 📅</h1>
+    <h1>📅 Events</h1>
     <p>Kommende und vergangene Treffen im Viertel</p>
+
+    <nav class="header-nav" aria-label="Hauptnavigation">
+      <ul class="header-button-list">
+        <li><a class="header-link-button" href="index.html">🏠 Startseite</a></li>
+        <li><a class="header-link-button" href="contact.html">💬 Austausch</a></li>
+        <li><a class="header-link-button" href="info.html">ℹ️ Infos</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
-    <div class="box">
 
+    <section class="box">
       <div class="events-controls">
-        <div class="filter-bar">
-          <button class="filter-button active" onclick="filterEvents('upcoming', this)">Kommende</button>
-          <button class="filter-button" onclick="filterEvents('past', this)">Vergangene</button>
-          <button class="filter-button" onclick="filterEvents('all', this)">Alle</button>
+        <div class="filter-bar" aria-label="Terminfilter">
+          <button class="filter-button active" type="button" data-filter="upcoming">Kommende</button>
+          <button class="filter-button" type="button" data-filter="past">Vergangene</button>
+          <button class="filter-button" type="button" data-filter="all">Alle</button>
         </div>
       </div>
-
-      <ul id="eventList"></ul>
 
       <p id="noResults">Für diesen Filter gibt es aktuell keine Termine.</p>
 
-      <div class="weather-note-box">
-        Heute nur kurzes Stehbier ab 18 Uhr aufgrund des Wetters
-      </div>
+      <ul id="eventList"></ul>
+    </section>
 
-      <div class="event-details">
-        <h2 id="selectedEvent"></h2>
-        <img id="eventImage" src="" alt="Eventbild">
+    <section class="box event-details">
+      <h2 id="selectedEvent">Termin</h2>
 
-        <div id="eventMeta" class="event-meta">
-          <div id="eventStatus" class="status-badge"></div>
-          <p id="eventCancelNoteWrap" class="cancel-note" style="display: none;">
-            <strong>⚠️ Absagehinweis:</strong> <span id="eventCancelNote"></span>
-          </p>
-          <p><strong>📍 Treffpunkt:</strong> <span id="eventLocation"></span></p>
-          <p><strong>📝 Beschreibung:</strong> <span id="eventDescription"></span></p>
-          <p><strong>👥 Ansprechpartner:</strong> <span id="eventContact"></span></p>
-          <p><strong>ℹ️ Hinweis:</strong> <span id="eventHint"></span></p>
+      <img id="eventImage" src="" alt="">
 
-          <div id="calendarButtons" class="calendar-buttons">
-            <a
-              id="googleCalendarLink"
-              class="calendar-link"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-goatcounter-click="calendar-google-single"
-            >
-              <span class="calendar-icon">📅</span>
-              <span>In Google Kalender</span>
-            </a>
+      <div id="eventMeta" class="event-meta">
+        <p id="eventStatus" class="status-badge"></p>
 
-            <a
-              id="icsCalendarLink"
-              class="calendar-link"
-              href="#"
-              download="termin.ics"
-              data-goatcounter-click="calendar-ics-single"
-            >
-              <span class="calendar-icon">🍎</span>
-              <span>Für iPhone & andere Kalender (.ics)</span>
-            </a>
-          </div>
+        <div id="cancelNoteBox" class="weather-note-box hidden"></div>
+
+        <p><strong>Treffpunkt:</strong> <span id="eventLocation"></span></p>
+        <p><strong>Beschreibung:</strong> <span id="eventDescription"></span></p>
+        <p><strong>Ansprechpartner:</strong> <span id="eventContact"></span></p>
+        <p><strong>ℹ️ Hinweis:</strong> <span id="eventHint"></span></p>
+
+        <div class="calendar-buttons">
+          <a id="googleCalendarLink" class="calendar-link" href="#" target="_blank" rel="noopener">
+            <span class="calendar-icon">📅</span>
+            In Google Kalender
+          </a>
+
+          <a id="icsLink" class="calendar-link" href="#" download>
+            <span class="calendar-icon">📥</span>
+            Für iPhone & andere Kalender (.ics)
+          </a>
         </div>
       </div>
+    </section>
 
-      <div class="all-events-download">
-        <a
-          id="allIcsCalendarLink"
-          class="calendar-link all-ics-link"
-          href="#"
-          download="alle-termine.ics"
-          data-goatcounter-click="calendar-ics-all"
-        >
-          <span class="calendar-icon">🗓️</span>
-          <span>Alle Termine als .ics herunterladen</span>
-        </a>
-      </div>
+    <section class="box all-events-download">
+      <a id="allIcsLink" class="calendar-link all-ics-link" href="#" download>
+        📥 Alle Termine als .ics herunterladen
+      </a>
+    </section>
 
-      <a class="back-link" href="index.html">Zurück zur Startseite</a>
+    <a class="back-link" href="index.html">Zurück zur Startseite</a>
 
-    </div>
   </main>
 
-  <div id="site-footer"></div>
+  <footer id="footer"></footer>
 
   <script src="events-data.js"></script>
-  <script src="contact.js"></script>
   <script src="footer-include.js"></script>
 
   <script>
-    function formatGermanDate(dateStr) {
-      const date = new Date(dateStr + "T00:00:00");
+    const eventList = document.getElementById("eventList");
+    const noResults = document.getElementById("noResults");
+
+    const selectedEvent = document.getElementById("selectedEvent");
+    const eventImage = document.getElementById("eventImage");
+    const eventMeta = document.getElementById("eventMeta");
+    const eventStatus = document.getElementById("eventStatus");
+    const cancelNoteBox = document.getElementById("cancelNoteBox");
+    const eventLocation = document.getElementById("eventLocation");
+    const eventDescription = document.getElementById("eventDescription");
+    const eventContact = document.getElementById("eventContact");
+    const eventHint = document.getElementById("eventHint");
+
+    const googleCalendarLink = document.getElementById("googleCalendarLink");
+    const icsLink = document.getElementById("icsLink");
+    const allIcsLink = document.getElementById("allIcsLink");
+
+    let currentFilter = "upcoming";
+
+    function getTodayString() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(`${dateString}T00:00:00`);
       return date.toLocaleDateString("de-DE", {
         weekday: "long",
         day: "2-digit",
@@ -113,363 +125,277 @@
       });
     }
 
-    function pad(num) {
-      return String(num).padStart(2, "0");
+    function isEventToday(event) {
+      return event.date === getTodayString();
     }
 
-    function slugify(text) {
-      return String(text || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+    function shouldShowCancelNote(event) {
+      return event.isCancelled === true &&
+             event.cancelNote &&
+             event.cancelNote.trim() !== "" &&
+             isEventToday(event);
     }
 
-    function escapeICS(text) {
-      return String(text || "")
-        .replace(/\\/g, "\\\\")
-        .replace(/\r?\n/g, "\\n")
-        .replace(/,/g, "\\,")
-        .replace(/;/g, "\\;");
+    function getSortedEvents() {
+      return [...events].sort((a, b) => {
+        if (a.date === b.date) {
+          return a.startTime.localeCompare(b.startTime);
+        }
+        return a.date.localeCompare(b.date);
+      });
     }
 
-    function formatLocalICS(dateStr, timeStr) {
-      const [year, month, day] = dateStr.split("-").map(Number);
-      const [hour, minute] = timeStr.split(":").map(Number);
-      return `${year}${pad(month)}${pad(day)}T${pad(hour)}${pad(minute)}00`;
+    function getFilteredEvents() {
+      const today = getTodayString();
+
+      return getSortedEvents().filter(event => {
+        if (currentFilter === "upcoming") {
+          return event.date >= today;
+        }
+
+        if (currentFilter === "past") {
+          return event.date < today;
+        }
+
+        return true;
+      });
     }
 
-    function formatUtcStamp() {
-      const now = new Date();
-      return (
-        now.getUTCFullYear() +
-        pad(now.getUTCMonth() + 1) +
-        pad(now.getUTCDate()) + "T" +
-        pad(now.getUTCHours()) +
-        pad(now.getUTCMinutes()) +
-        pad(now.getUTCSeconds()) + "Z"
-      );
+    function getNextUpcomingEvent() {
+      const today = getTodayString();
+
+      return getSortedEvents().find(event => event.date >= today);
     }
 
-    function getEventStatus(event) {
-      if (event.isCancelled) return "Abgesagt";
+    function renderEventList() {
+      const filteredEvents = getFilteredEvents();
+      const nextUpcomingEvent = getNextUpcomingEvent();
 
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      eventList.innerHTML = "";
 
-      const eventDate = new Date(event.date + "T00:00:00");
-      eventDate.setHours(0, 0, 0, 0);
+      if (filteredEvents.length === 0) {
+        noResults.style.display = "block";
+        return;
+      }
 
-      if (eventDate < today) return "Vergangen";
-      if (eventDate.getTime() === today.getTime()) return "Heute";
-      return "Findet statt";
+      noResults.style.display = "none";
+
+      filteredEvents.forEach((event, index) => {
+        const item = document.createElement("li");
+        item.className = "event-item";
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "event-link";
+
+        if (nextUpcomingEvent && event.date === nextUpcomingEvent.date && event.startTime === nextUpcomingEvent.startTime) {
+          button.classList.add("next-event");
+        }
+
+        if (isEventToday(event)) {
+          button.classList.add("today-event");
+        }
+
+        if (event.isCancelled) {
+          button.classList.add("cancelled-event");
+        }
+
+        if (event.date < getTodayString()) {
+          button.classList.add("past-event");
+        }
+
+        button.innerHTML = `
+          <span class="event-link-content">
+            <strong>${formatDate(event.date)} um ${event.startTime} Uhr</strong><br>
+            ${event.title}
+          </span>
+          ${shouldShowCancelNote(event) ? `
+            <span class="event-list-note">${event.cancelNote}</span>
+          ` : ""}
+        `;
+
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".event-link").forEach(link => {
+            link.classList.remove("active");
+          });
+
+          button.classList.add("active");
+          showEventDetails(event);
+        });
+
+        item.appendChild(button);
+        eventList.appendChild(item);
+
+        if (index === 0) {
+          button.classList.add("active");
+          showEventDetails(event);
+        }
+      });
+    }
+
+    function showEventDetails(event) {
+      selectedEvent.style.display = "block";
+      selectedEvent.textContent = event.fullTitle || event.title;
+
+      if (event.image) {
+        eventImage.src = event.image;
+        eventImage.alt = event.title;
+        eventImage.style.display = "block";
+
+        setTimeout(() => {
+          eventImage.classList.add("visible");
+        }, 50);
+      } else {
+        eventImage.src = "";
+        eventImage.alt = "";
+        eventImage.style.display = "none";
+        eventImage.classList.remove("visible");
+      }
+
+      eventMeta.style.display = "block";
+
+      eventLocation.textContent = event.location || "";
+      eventDescription.textContent = event.description || "";
+      eventContact.textContent = event.contact || "";
+      eventHint.textContent = event.hint || "";
+
+      eventStatus.className = "status-badge";
+
+      if (event.isCancelled && isEventToday(event)) {
+        eventStatus.textContent = "Heute mit Hinweis";
+        eventStatus.classList.add("status-cancelled");
+      } else if (event.isCancelled) {
+        eventStatus.textContent = "Geänderter Termin";
+        eventStatus.classList.add("status-cancelled");
+      } else if (isEventToday(event)) {
+        eventStatus.textContent = "Heute";
+        eventStatus.classList.add("status-today");
+      } else if (event.date < getTodayString()) {
+        eventStatus.textContent = "Vergangen";
+      } else {
+        eventStatus.textContent = "Geplant";
+      }
+
+      if (shouldShowCancelNote(event)) {
+        cancelNoteBox.textContent = event.cancelNote;
+        cancelNoteBox.classList.remove("hidden");
+      } else {
+        cancelNoteBox.textContent = "";
+        cancelNoteBox.classList.add("hidden");
+      }
+
+      googleCalendarLink.href = createGoogleCalendarLink(event);
+      icsLink.href = createSingleIcsLink(event);
+      icsLink.download = createIcsFilename(event);
+    }
+
+    function formatCalendarDate(dateString, timeString) {
+      return `${dateString.replaceAll("-", "")}T${timeString.replace(":", "")}00`;
     }
 
     function createGoogleCalendarLink(event) {
-      const start = formatLocalICS(event.date, event.startTime);
-      const end = formatLocalICS(event.date, event.endTime);
+      const start = formatCalendarDate(event.date, event.startTime);
+      const end = formatCalendarDate(event.date, event.endTime);
 
-      const details = [
-        event.description,
-        `Ansprechpartner: ${event.contact}`,
-        `Hinweis: ${event.hint}`
-      ].join(" ");
+      const text = encodeURIComponent(event.fullTitle || event.title);
+      const details = encodeURIComponent(
+        `${event.description || ""}\n\nHinweis: ${event.hint || ""}`
+      );
+      const location = encodeURIComponent(event.location || "");
 
-      const params = new URLSearchParams({
-        action: "TEMPLATE",
-        text: event.title,
-        dates: `${start}/${end}`,
-        ctz: "Europe/Berlin",
-        details,
-        location: event.location
-      });
-
-      return `https://calendar.google.com/calendar/render?${params.toString()}`;
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`;
     }
 
-    function createICSContent(event) {
-      const start = formatLocalICS(event.date, event.startTime);
-      const end = formatLocalICS(event.date, event.endTime);
-      const dtstamp = formatUtcStamp();
+    function createIcsContent(event) {
+      const start = formatCalendarDate(event.date, event.startTime);
+      const end = formatCalendarDate(event.date, event.endTime);
 
-      const descriptionParts = [
-        event.description,
-        `Ansprechpartner: ${event.contact}`,
-        `Hinweis: ${event.hint}`
-      ];
-
-      if (event.isCancelled && event.cancelNote) {
-        descriptionParts.push(`Absagehinweis: ${event.cancelNote}`);
-      }
+      const title = event.fullTitle || event.title;
+      const description = `${event.description || ""}\\n\\nHinweis: ${event.hint || ""}`;
+      const location = event.location || "";
 
       return [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Nachbarschaft Galgenberg//DE",
-        "CALSCALE:GREGORIAN",
+        "PRODID:-//Nachbarschaft Galgenberg//Events//DE",
         "BEGIN:VEVENT",
-        `UID:${event.date}-${slugify(event.title)}@galgenberg`,
-        `DTSTAMP:${dtstamp}`,
-        `DTSTART;TZID=Europe/Berlin:${start}`,
-        `DTEND;TZID=Europe/Berlin:${end}`,
-        `SUMMARY:${escapeICS(event.title)}`,
-        `DESCRIPTION:${escapeICS(descriptionParts.join("\\n"))}`,
-        `LOCATION:${escapeICS(event.location)}`,
+        `UID:${event.date}-${event.startTime}@galgenberg-aalen.de`,
+        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+        `DTSTART:${start}`,
+        `DTEND:${end}`,
+        `SUMMARY:${escapeIcsText(title)}`,
+        `DESCRIPTION:${escapeIcsText(description)}`,
+        `LOCATION:${escapeIcsText(location)}`,
         "END:VEVENT",
         "END:VCALENDAR"
       ].join("\r\n");
     }
 
-    function createICSDataUrl(event) {
-      return "data:text/calendar;charset=utf-8," + encodeURIComponent(createICSContent(event));
+    function escapeIcsText(text) {
+      return String(text)
+        .replace(/\\/g, "\\\\")
+        .replace(/;/g, "\\;")
+        .replace(/,/g, "\\,")
+        .replace(/\n/g, "\\n");
     }
 
-    function createICSFilename(event) {
-      return `${event.date}-${slugify(event.title)}.ics`;
+    function createSingleIcsLink(event) {
+      const content = createIcsContent(event);
+      const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
+      return URL.createObjectURL(blob);
     }
 
-    function createAllICSContent(eventsArray) {
-      const lines = [
+    function createIcsFilename(event) {
+      return `termin-${event.date}.ics`;
+    }
+
+    function createAllIcsLink() {
+      const allEventsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Nachbarschaft Galgenberg//DE",
-        "CALSCALE:GREGORIAN"
-      ];
+        "PRODID:-//Nachbarschaft Galgenberg//Events//DE",
+        ...getSortedEvents().flatMap(event => {
+          const start = formatCalendarDate(event.date, event.startTime);
+          const end = formatCalendarDate(event.date, event.endTime);
+          const title = event.fullTitle || event.title;
+          const description = `${event.description || ""}\\n\\nHinweis: ${event.hint || ""}`;
+          const location = event.location || "";
 
-      const dtstamp = formatUtcStamp();
+          return [
+            "BEGIN:VEVENT",
+            `UID:${event.date}-${event.startTime}@galgenberg-aalen.de`,
+            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+            `DTSTART:${start}`,
+            `DTEND:${end}`,
+            `SUMMARY:${escapeIcsText(title)}`,
+            `DESCRIPTION:${escapeIcsText(description)}`,
+            `LOCATION:${escapeIcsText(location)}`,
+            "END:VEVENT"
+          ];
+        }),
+        "END:VCALENDAR"
+      ].join("\r\n");
 
-      eventsArray.forEach((event) => {
-        const start = formatLocalICS(event.date, event.startTime);
-        const end = formatLocalICS(event.date, event.endTime);
-
-        const descriptionParts = [
-          event.description,
-          `Ansprechpartner: ${event.contact}`,
-          `Hinweis: ${event.hint}`
-        ];
-
-        if (event.isCancelled && event.cancelNote) {
-          descriptionParts.push(`Absagehinweis: ${event.cancelNote}`);
-        }
-
-        lines.push("BEGIN:VEVENT");
-        lines.push(`UID:${event.date}-${slugify(event.title)}@galgenberg`);
-        lines.push(`DTSTAMP:${dtstamp}`);
-        lines.push(`DTSTART;TZID=Europe/Berlin:${start}`);
-        lines.push(`DTEND;TZID=Europe/Berlin:${end}`);
-        lines.push(`SUMMARY:${escapeICS(event.title)}`);
-        lines.push(`DESCRIPTION:${escapeICS(descriptionParts.join("\\n"))}`);
-        lines.push(`LOCATION:${escapeICS(event.location)}`);
-        lines.push("END:VEVENT");
-      });
-
-      lines.push("END:VCALENDAR");
-      return lines.join("\r\n");
+      const blob = new Blob([allEventsContent], { type: "text/calendar;charset=utf-8" });
+      allIcsLink.href = URL.createObjectURL(blob);
+      allIcsLink.download = "alle-termine-galgenberg.ics";
     }
 
-    function createAllICSDataUrl() {
-      return "data:text/calendar;charset=utf-8," + encodeURIComponent(createAllICSContent(events));
-    }
-
-    function renderEvents() {
-      const list = document.getElementById("eventList");
-      list.innerHTML = "";
-
-      const sortedEvents = [...events].sort((a, b) => {
-        const dateTimeA = new Date(`${a.date}T${a.startTime}:00`);
-        const dateTimeB = new Date(`${b.date}T${b.startTime}:00`);
-        return dateTimeA - dateTimeB;
-      });
-
-      sortedEvents.forEach((event) => {
-        const originalIndex = events.indexOf(event);
-
-        const li = document.createElement("li");
-        li.className = "event-item";
-        li.dataset.date = event.date;
-        li.dataset.index = originalIndex;
-        li.dataset.cancelled = event.isCancelled ? "true" : "false";
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "event-link";
-        button.textContent = `${formatGermanDate(event.date)} – ${event.startTime} Uhr – ${event.title}`;
-        button.setAttribute("data-goatcounter-click", `event-${event.date}-${slugify(event.title)}`);
-        button.onclick = () => showEvent(originalIndex, button);
-
-        li.appendChild(button);
-        list.appendChild(li);
-      });
-    }
-
-    function showEvent(index, el) {
-      document.querySelectorAll(".event-link").forEach((e) => e.classList.remove("active"));
-      el.classList.add("active");
-
-      const event = events[index];
-
-      const title = document.getElementById("selectedEvent");
-      const image = document.getElementById("eventImage");
-      const meta = document.getElementById("eventMeta");
-      const status = document.getElementById("eventStatus");
-      const location = document.getElementById("eventLocation");
-      const description = document.getElementById("eventDescription");
-      const contact = document.getElementById("eventContact");
-      const hint = document.getElementById("eventHint");
-      const googleCalendarLink = document.getElementById("googleCalendarLink");
-      const icsCalendarLink = document.getElementById("icsCalendarLink");
-      const calendarButtons = document.getElementById("calendarButtons");
-      const cancelNoteWrap = document.getElementById("eventCancelNoteWrap");
-      const cancelNote = document.getElementById("eventCancelNote");
-
-      title.textContent = event.fullTitle;
-      title.style.display = "block";
-
-      const currentStatus = getEventStatus(event);
-      status.textContent = currentStatus;
-      status.className = "status-badge";
-
-      if (event.isCancelled) {
-        status.classList.add("status-cancelled");
-      } else if (currentStatus === "Heute") {
-        status.classList.add("status-today");
-      }
-
-      location.textContent = event.location;
-      description.textContent = event.description;
-      contact.textContent = event.contact;
-      hint.textContent = event.hint;
-
-      if (event.isCancelled && event.cancelNote) {
-        cancelNote.textContent = event.cancelNote;
-        cancelNoteWrap.style.display = "block";
-      } else {
-        cancelNote.textContent = "";
-        cancelNoteWrap.style.display = "none";
-      }
-
-      if (event.isCancelled) {
-        calendarButtons.style.display = "none";
-        googleCalendarLink.removeAttribute("href");
-        icsCalendarLink.removeAttribute("href");
-      } else {
-        calendarButtons.style.display = "flex";
-        googleCalendarLink.href = createGoogleCalendarLink(event);
-        icsCalendarLink.href = createICSDataUrl(event);
-        icsCalendarLink.setAttribute("download", createICSFilename(event));
-      }
-
-      meta.style.display = "block";
-      image.classList.remove("visible");
-
-      if (event.image) {
-        image.src = event.image;
-        image.style.display = "block";
-
-        setTimeout(() => {
-          title.scrollIntoView({ behavior: "smooth", block: "start" });
-          image.classList.add("visible");
-        }, 100);
-      } else {
-        image.removeAttribute("src");
-        image.style.display = "none";
-      }
-    }
-
-    function filterEvents(type, btn) {
-      document.querySelectorAll(".filter-button").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      let visibleCount = 0;
-
-      document.querySelectorAll(".event-item").forEach((item) => {
-        const d = new Date(item.dataset.date + "T00:00:00");
-        d.setHours(0, 0, 0, 0);
-
-        let show = false;
-
-        if (type === "all") show = true;
-        if (type === "upcoming") show = d >= today;
-        if (type === "past") show = d < today;
-
-        item.classList.toggle("hidden", !show);
-
-        if (show) visibleCount++;
-      });
-
-      document.getElementById("noResults").style.display = visibleCount === 0 ? "block" : "none";
-    }
-
-    function markSpecialEvents() {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const items = document.querySelectorAll(".event-item");
-      let nextItem = null;
-      let nextDate = null;
-      let todayFound = false;
-
-      items.forEach((item) => {
-        const link = item.querySelector(".event-link");
-        link.classList.remove("today-event", "next-event", "past-event", "cancelled-event");
-
-        const d = new Date(item.dataset.date + "T00:00:00");
-        d.setHours(0, 0, 0, 0);
-
-        const isCancelled = item.dataset.cancelled === "true";
-
-        if (isCancelled) {
-          link.classList.add("cancelled-event");
-          return;
-        }
-
-        if (d < today) {
-          link.classList.add("past-event");
-        }
-
-        if (d.getTime() === today.getTime()) {
-          link.classList.add("today-event");
-          todayFound = true;
-        }
-      });
-
-      if (!todayFound) {
-        items.forEach((item) => {
-          const d = new Date(item.dataset.date + "T00:00:00");
-          d.setHours(0, 0, 0, 0);
-
-          const isCancelled = item.dataset.cancelled === "true";
-          if (isCancelled) return;
-
-          if (d >= today && (!nextDate || d < nextDate)) {
-            nextDate = d;
-            nextItem = item;
-          }
+    document.querySelectorAll(".filter-button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-button").forEach(filterButton => {
+          filterButton.classList.remove("active");
         });
 
-        if (nextItem) {
-          nextItem.querySelector(".event-link").classList.add("next-event");
-        }
-      }
-    }
+        button.classList.add("active");
+        currentFilter = button.dataset.filter;
+        renderEventList();
+      });
+    });
 
-    renderEvents();
-    markSpecialEvents();
-    filterEvents("upcoming", document.querySelector(".filter-button.active"));
-
-    const allIcsCalendarLink = document.getElementById("allIcsCalendarLink");
-    allIcsCalendarLink.href = createAllICSDataUrl();
-    allIcsCalendarLink.setAttribute("download", "nachbarschaft-galgenberg-alle-termine.ics");
+    renderEventList();
+    createAllIcsLink();
   </script>
 
-  <script
-    data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
-    async
-    src="//gc.zgo.at/count.js"
-  ></script>
 </body>
 </html>
