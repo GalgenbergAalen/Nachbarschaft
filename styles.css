@@ -51,7 +51,9 @@ header p {
 }
 
 .header-link-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 150px;
   background-color: #ffffff;
   color: #2f3a32;
@@ -78,7 +80,8 @@ main {
   padding: 0 20px;
 }
 
-footer {
+footer,
+.site-footer {
   text-align: center;
   padding: 24px 20px;
   color: #666;
@@ -86,21 +89,25 @@ footer {
   margin-top: 40px;
 }
 
-footer p {
+footer p,
+.site-footer p {
   margin-bottom: 8px;
 }
 
-footer p:last-child {
+footer p:last-child,
+.site-footer p:last-child {
   margin-bottom: 0;
 }
 
-footer a {
+footer a,
+.site-footer a {
   color: #4f7c65;
   text-decoration: none;
   margin: 0 6px;
 }
 
-footer a:hover {
+footer a:hover,
+.site-footer a:hover {
   text-decoration: underline;
 }
 
@@ -613,6 +620,7 @@ a:hover {
 .event-link:focus,
 .header-link-button:focus,
 footer a:focus,
+.site-footer a:focus,
 .info-teaser-link:focus,
 .info-item-link:focus {
   outline: 3px solid #ff9800;
