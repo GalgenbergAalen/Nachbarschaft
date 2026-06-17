@@ -20,6 +20,7 @@
 
     <nav class="header-nav" aria-label="Hauptnavigation">
       <ul class="header-button-list">
+        <li><a href="index.html" class="header-link-button">🏠 Start</a></li>
         <li><a href="events.html" class="header-link-button">📅 Termine</a></li>
         <li><a href="austausch.html" class="header-link-button">💬 Austausch</a></li>
         <li><a href="infos.html" class="header-link-button">ℹ️ Infos</a></li>
@@ -47,7 +48,7 @@
       </p>
       <p>
         Dann melde dich gern über die Austausch-Seite oder per E-Mail an
-        <a href="mailto:info@galgenberg-aalen.de">info@galgenberg-aalen.de</a>.
+        <span data-contact-email></span>.
       </p>
     </article>
 
@@ -69,10 +70,11 @@
 
   </main>
 
-  <footer id="site-footer" class="site-footer"></footer>
+  <div id="site-footer"></div>
 
   <script src="events-data.js"></script>
   <script src="infos-data.js"></script>
+  <script src="contact.js"></script>
   <script src="footer-include.js"></script>
 
   <script>
@@ -191,6 +193,12 @@
     renderNextEvent();
     renderLatestInfo();
   </script>
+
+  <script
+    data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
 
 </body>
 </html>
