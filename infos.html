@@ -8,13 +8,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Infos</title>
+  <title>Infos | Nachbarschaft Galgenberg</title>
+  <link rel="canonical" href="https://galgenbergaalen.github.io/Nachbarschaft/infos.html">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header>
-    <h1>Infos ℹ️</h1>
+    <h1>ℹ️ Infos</h1>
+    <p>Hinweise und Entwicklungen rund um den Galgenberg</p>
+
+    <nav class="header-nav" aria-label="Hauptnavigation">
+      <ul class="header-button-list">
+        <li><a href="index.html" class="header-link-button">🏠 Start</a></li>
+        <li><a href="events.html" class="header-link-button">📅 Termine</a></li>
+        <li><a href="austausch.html" class="header-link-button">💬 Austausch</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
@@ -39,11 +49,12 @@
     </div>
   </main>
 
-  <div id="site-footer"></div>
+  <footer id="site-footer" class="site-footer"></footer>
 
   <script src="infos-data.js"></script>
   <script src="contact.js"></script>
   <script src="footer-include.js"></script>
+
   <script>
     function formatDate(dateString) {
       const date = new Date(`${dateString}T00:00:00`);
@@ -123,6 +134,7 @@
 
     renderInfoGroups();
   </script>
+
   <script
     data-goatcounter="https://galgenbergaalen.goatcounter.com/count"
     async
