@@ -49,7 +49,7 @@
       <a class="link-button" href="events.html">Zu den Terminen</a>
     </article>
 
-    <article class="box" id="latestInfoBox">
+    <article class="box highlight-box" id="latestInfoBox">
       <h2>Aktuelle Info aus dem Viertel</h2>
       <div id="latestInfoContent">
         <p>Wird geladen ...</p>
@@ -112,6 +112,7 @@
           if (a.date === b.date) {
             return a.startTime.localeCompare(b.startTime);
           }
+
           return a.date.localeCompare(b.date);
         })[0];
     }
@@ -164,30 +165,34 @@
     function getLatestInfo() {
       return infos
         .slice()
-        .sort((a, b) => b.date.localeCompare(a.date))[0];
+        .sort((a, b) => {
+          if (a.date === b.date) {
+            return a.title.localeCompare(b.title);
+          }
+
+          return b.date.localeCompare(a.date);
+        })[0];
     }
 
     function renderLatestInfo() {
-  const container = document.getElementById("latestInfoContent");
-  const latestInfo = getLatestInfo();
+      const container = document.getElementById("latestInfoContent");
+      const latestInfo = getLatestInfo();
 
-  if (!latestInfo) {
-    container.innerHTML = `
-      <p>Aktuell ist keine Info eingetragen.</p>
-    `;
-    return;
-  }
+      if (!latestInfo) {
+        container.innerHTML = `
+          <p>Aktuell ist keine Info eingetragen.</p>
+        `;
+        return;
+      }
 
-  container.innerHTML = `
-    <a href="infos.html" class="info-teaser-link">
-      <p class="info-status">Neuester Hinweis</p>
-      <p class="info-date">${formatDate(latestInfo.date)}</p>
-      <p class="info-title">${latestInfo.title}</p>
-      <p>${latestInfo.shortText}</p>
-      <p class="muted-text"><strong>Ort:</strong> ${latestInfo.location}</p>
-    </a>
-  `;
-}
+      container.innerHTML = `
+        <p class="info-status">Neuester Hinweis</p>
+        <p class="info-date">${formatDate(latestInfo.date)}</p>
+        <p class="info-title">${latestInfo.title}</p>
+        <p>${latestInfo.shortText}</p>
+        <p class="muted-text"><strong>Ort:</strong> ${latestInfo.location}</p>
+      `;
+    }
 
     renderNextEvent();
     renderLatestInfo();
