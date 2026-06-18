@@ -62,7 +62,7 @@
       });
     }
 
-    function renderInfoGroups() {
+    function renderInfos() {
       const container = document.getElementById("infoGroups");
 
       if (typeof infos === "undefined" || infos.length === 0) {
@@ -75,14 +75,8 @@
         return;
       }
 
-      const combinedCategories = [
-        "Aktuelle Infos aus dem Viertel",
-        "Laufende und anstehende Bauprojekte",
-        "Eröffnungen"
-      ];
-
-      const combinedInfos = infos
-        .filter((info) => combinedCategories.includes(info.category))
+      const sortedInfos = infos
+        .slice()
         .sort((a, b) => {
           if (a.date === b.date) {
             return a.title.localeCompare(b.title);
@@ -91,20 +85,9 @@
           return b.date.localeCompare(a.date);
         });
 
-      if (combinedInfos.length === 0) {
-        container.innerHTML = `
-          <div class="box">
-            <h2>Aktuell keine Einträge</h2>
-            <p>Zurzeit sind noch keine weiteren Infos hinterlegt.</p>
-          </div>
-        `;
-        return;
-      }
-
-      const itemsHtml = combinedInfos.map((info) => `
+      const itemsHtml = sortedInfos.map((info) => `
         <li class="info-item">
           <p class="info-item-date">${formatDate(info.date)}</p>
-          <p class="info-category">${info.category}</p>
           <h3>${info.title}</h3>
           <p class="info-item-meta"><strong>Ort:</strong> ${info.location}</p>
           <p>${info.shortText}</p>
@@ -121,7 +104,7 @@
 
       container.innerHTML = `
         <div class="box">
-          <h2>Aktuelle Infos aus dem Viertel</h2>
+          <h2>Weitere Infos</h2>
           <ul class="info-list">
             ${itemsHtml}
           </ul>
@@ -129,7 +112,7 @@
       `;
     }
 
-    renderInfoGroups();
+    renderInfos();
   </script>
 
   <script
