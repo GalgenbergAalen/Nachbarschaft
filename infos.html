@@ -65,7 +65,7 @@
     function renderInfoGroups() {
       const container = document.getElementById("infoGroups");
 
-      if (!window.infos || infos.length === 0) {
+      if (typeof infos === "undefined" || infos.length === 0) {
         container.innerHTML = `
           <div class="box">
             <h2>Aktuell keine Einträge</h2>
@@ -92,6 +92,7 @@
       });
 
       const knownCategories = categoryOrder.filter((category) => groupedInfos[category]);
+
       const additionalCategories = Object.keys(groupedInfos)
         .filter((category) => !categoryOrder.includes(category))
         .sort();
