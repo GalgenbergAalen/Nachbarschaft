@@ -168,27 +168,26 @@
     }
 
     function renderLatestInfo() {
-      const container = document.getElementById("latestInfoContent");
-      const latestInfo = getLatestInfo();
+  const container = document.getElementById("latestInfoContent");
+  const latestInfo = getLatestInfo();
 
-      if (!latestInfo) {
-        container.innerHTML = `
-          <p>Aktuell ist keine Info eingetragen.</p>
-        `;
-        return;
-      }
+  if (!latestInfo) {
+    container.innerHTML = `
+      <p>Aktuell ist keine Info eingetragen.</p>
+    `;
+    return;
+  }
 
-      container.innerHTML = `
-        <a href="infos.html" class="info-teaser-link">
-          <p class="info-status">Neuester Hinweis</p>
-          <p class="info-category">${latestInfo.category}</p>
-          <p class="info-date">${formatDate(latestInfo.date)}</p>
-          <p class="info-title">${latestInfo.title}</p>
-          <p>${latestInfo.shortText}</p>
-          <p class="muted-text"><strong>Ort:</strong> ${latestInfo.location}</p>
-        </a>
-      `;
-    }
+  container.innerHTML = `
+    <a href="infos.html" class="info-teaser-link">
+      <p class="info-status">Neuester Hinweis</p>
+      <p class="info-date">${formatDate(latestInfo.date)}</p>
+      <p class="info-title">${latestInfo.title}</p>
+      <p>${latestInfo.shortText}</p>
+      <p class="muted-text"><strong>Ort:</strong> ${latestInfo.location}</p>
+    </a>
+  `;
+}
 
     renderNextEvent();
     renderLatestInfo();
