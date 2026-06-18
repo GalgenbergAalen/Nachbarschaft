@@ -52,7 +52,7 @@ const infos = [
     link: "https://www.aalen.de/im-baugebiet-tannenwaeldle-gehts-voran.242198.25.htm"
   },
   {
-    date: "2026-01-01",
+    date: "2023-12-20",
     category: "Laufende und anstehende Bauprojekte",
     title: "Kreisverkehr an Galgenbergstraße / Hirschbachstraße",
     shortText: "Im städtischen Baustellenplan wird der Bau eines neuen Kreisverkehrs an der Ecke Galgenbergstraße / Hirschbachstraße als laufende Maßnahme geführt.",
@@ -61,7 +61,7 @@ const infos = [
   },
   {
     date: "2023-05-25",
-    category: "Weitere Hinweise",
+    category: "Aktuelle Infos aus dem Viertel",
     title: "Neues Infopult am Wagnerplatz",
     shortText: "Am Wagnerplatz wurde ein neues Infopult zum Wohnquartier im Rahmen eines historischen Stadtspaziergangs vorgestellt.",
     location: "Wagnerplatz, Aalen",
