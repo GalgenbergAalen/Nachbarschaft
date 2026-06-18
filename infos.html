@@ -75,66 +75,58 @@
         return;
       }
 
-      const categoryOrder = [
-        "Eröffnungen",
+      const combinedCategories = [
+        "Aktuelle Infos aus dem Viertel",
         "Laufende und anstehende Bauprojekte",
-        "Weitere Hinweise"
+        "Eröffnungen"
       ];
 
-      const groupedInfos = {};
+      const combinedInfos = infos
+        .filter((info) => combinedCategories.includes(info.category))
+        .sort((a, b) => {
+          if (a.date === b.date) {
+            return a.title.localeCompare(b.title);
+          }
 
-      infos.forEach((info) => {
-        if (!groupedInfos[info.category]) {
-          groupedInfos[info.category] = [];
-        }
+          return b.date.localeCompare(a.date);
+        });
 
-        groupedInfos[info.category].push(info);
-      });
-
-      const knownCategories = categoryOrder.filter((category) => groupedInfos[category]);
-
-      const additionalCategories = Object.keys(groupedInfos)
-        .filter((category) => !categoryOrder.includes(category))
-        .sort();
-
-      const allCategories = [
-        ...knownCategories,
-        ...additionalCategories
-      ];
-
-      let html = "";
-
-      allCategories.forEach((category) => {
-        groupedInfos[category].sort((a, b) => b.date.localeCompare(a.date));
-
-        const itemsHtml = groupedInfos[category].map((info) => `
-          <li class="info-item">
-            <p class="info-item-date">${formatDate(info.date)}</p>
-            <h3>${info.title}</h3>
-            <p class="info-item-meta"><strong>Ort:</strong> ${info.location}</p>
-            <p>${info.shortText}</p>
-            <a
-              class="info-item-link"
-              href="${info.link}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Zum Artikel
-            </a>
-          </li>
-        `).join("");
-
-        html += `
+      if (combinedInfos.length === 0) {
+        container.innerHTML = `
           <div class="box">
-            <h2>${category}</h2>
-            <ul class="info-list">
-              ${itemsHtml}
-            </ul>
+            <h2>Aktuell keine Einträge</h2>
+            <p>Zurzeit sind noch keine weiteren Infos hinterlegt.</p>
           </div>
         `;
-      });
+        return;
+      }
 
-      container.innerHTML = html;
+      const itemsHtml = combinedInfos.map((info) => `
+        <li class="info-item">
+          <p class="info-item-date">${formatDate(info.date)}</p>
+          <p class="info-category">${info.category}</p>
+          <h3>${info.title}</h3>
+          <p class="info-item-meta"><strong>Ort:</strong> ${info.location}</p>
+          <p>${info.shortText}</p>
+          <a
+            class="info-item-link"
+            href="${info.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Zum Artikel
+          </a>
+        </li>
+      `).join("");
+
+      container.innerHTML = `
+        <div class="box">
+          <h2>Aktuelle Infos aus dem Viertel</h2>
+          <ul class="info-list">
+            ${itemsHtml}
+          </ul>
+        </div>
+      `;
     }
 
     renderInfoGroups();
